@@ -9,12 +9,12 @@ from jinja2 import Template
 from .utils import ColorMessage, getHtmlElement
 
 
-def _getIndexStyle():
-    return """* {
-              box-sizing: border-box;
-            }
-            
-            #Input {
+def _getIndexStyle(font="Chalkduster", bodycolor="silver", boxcolor="gray", hover="orange"):
+    return """body {{
+                background-color: {BODY};
+                font-family: {FONT};
+            }}
+            #Input {{
               background-position: 10px 12px;
               background-repeat: no-repeat;
               width: 100%;
@@ -22,61 +22,28 @@ def _getIndexStyle():
               padding: 12px 20px 12px 40px;
               border: 1px solid #ddd;
               margin-bottom: 12px;
-            }
-
-            #navi {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-                background-color: #334;
-            }
-            
-            #navi li {
-                float: left;
-            }
-            
-            #navi li a {
-                display: block;
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-            }
-            
-            #navi li div {
-                display: block;
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-            }
-            
-            #navi li a:hover {
-                background-color: #111;
-            }
-
-            #folders {
+            }}
+            #folders {{
               list-style-type: none;
               padding: 0;
               margin: 0;
-            }
+            }}
             
-            #folders li a {
+            #folders li a {{
               border: 1px solid #ddd;
               margin-top: -1px; /* Prevent double borders */
-              background-color: #b6b6b6;
+              background-color: {BOX};
               padding: 8px;
               text-decoration: none;
               font-size: 17px;
               color: black;
               display: block
-            }
+            }}
             
-            #folders li a:hover:not(.header) {
-              background-color: #fff;
-            }
-    """
+            #folders li a:hover:not(.header) {{
+              background-color: {HOVER};
+            }}
+    """.format(FONT=font, BODY=bodycolor, BOX=boxcolor, HOVER=hover)
 
 
 def _getSearchScripts():
