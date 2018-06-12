@@ -4,7 +4,6 @@ sandbox*.py
 # Data for TensorFlow
 instance/
 data/
-input/
 inception/
 vgg16/
 checkpoints/

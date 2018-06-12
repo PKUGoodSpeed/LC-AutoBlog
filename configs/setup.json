@@ -1,5 +1,6 @@
 {
     "title_file": "/home/zebo/git/myRep/flask/LC-AutoBlog/leetcode_titles.txt",
+    "local_dir": "/home/zebo/git/myRep/flask/LC-AutoBlog/input",
     "target_dir": "/home/zebo/git/myRep/flask/LC-AutoBlog/data",
     "target_web": "https://jogchat.com/leetcode_blogs",
     "templates": "./templates"

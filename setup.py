@@ -7,6 +7,7 @@ from web_src.index import makeSearchIndex
 def _setupDirs(json_file):
     C = json.load(open(json_file, 'r'))
     title_file = C['title_file']
+    local_dir = C["local_dir"]
     target_dir = C["target_dir"]
     target_web = C["target_web"]
     templates = C["templates"]
@@ -23,6 +24,9 @@ def _setupDirs(json_file):
             problem_dir = target_dir + "/" + line
             if not os.path.exists(problem_dir):
                 os.makedirs(problem_dir)
+            local_problem_dir = local_dir + "/" + line
+            if not os.path.exists(local_problem_dir):
+                os.makedirs(local_problem_dir)
             try:
                 os.chmod(problem_dir, 0o777)
             except:
