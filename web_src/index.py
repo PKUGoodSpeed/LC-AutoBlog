@@ -1,3 +1,56 @@
+
+def getNavigator(path, host):
+    """ Creating a index.php page for simulation directories """
+    if not os.path.exists(path):
+        msg = path + " does not exist."
+        return "<h3 style=\'color:red\'>{M}</h3>".format(M=msg)
+    nav_addr = "http://{H}{R}?path={P}".format(
+        H=host, R=route_map["navigation"], P=path)
+    txt_addr = "http://{H}{R}?path={P}".format(
+        H=host, R=route_map["navigation"], P=path)
+    folders = [f for f in os.listdir(path) if os.path.isdir(path + "/" + f)]
+    folders.sort()
+    files = [f for f in os.listdir(path) if not os.path.isdir(path + "/" + f)]
+    files.sort()
+    hl_folders = [gweb.getHyperLink(nav_addr + "/" + f, f, style="self", new_line=False)
+                  for f in folders]
+    hl_files = [gweb.getHyperLink(txt_addr + "/" + f, f, style="self", new_line=False)
+                for f in files]
+    navigations = []
+    navigations.append(
+        gweb.getHyperLink("http://{H}{R}?path={P}".format(
+            H=host, R=route_map["navigation"], P=SIM_PATH), "Home", style="self", new_line=False))
+    navigations.append(
+        gweb.getHyperLink("http://{H}{R}?path={P}/ginkgo".format(
+            H=host, R=route_map["navigation"], P=SIM_PATH), "Ginkgo", style="self", new_line=False))
+    navigations.append(
+        gweb.getHyperLink("http://{H}{R}?path={P}/zitan".format(
+            H=host, R=route_map["navigation"], P=SIM_PATH), "Zitan", style="self", new_line=False))
+    if "/share/sim/zitan" in path:
+        navigations.append(
+            gweb.getHyperLink("http://{H}{R}?path={P}".format(
+                H=host, R=route_map["zitan_sim"], P=path), "Simulation", style="self", new_line=False))
+    else:
+        navigations.append(
+            gweb.getHyperLink("http://{H}{R}?path={P}".format(
+                H=host, R=route_map["ginkgo_sim"], P=path), "Simulation", style="self", new_line=False))
+    if os.path.exists(path + "/cmp.cfg"):
+        navigations.append(
+            gweb.getHyperLink("http://{H}{R}?path={P}".format(
+                H=host, R=route_map["compare"], P=path), "Comparison", style="self", new_line=False))
+    if os.path.exists(path + "/ranker.summary.csv"):
+        navigations.append(
+            gweb.getHyperLink("http://{H}{R}?path={P}".format(
+                H=host, R=route_map["ranker"], P=path), "Ranker", style="self", new_line=False))
+    navigations.append(gweb.getSearchBox())
+
+    body = gweb.getHeader("PATH=" + path, level=3)
+    body += gweb.getList(navigations, ordered=False, id="navi")
+    body += "<input type=\"text\" id=\"Input\" onkeyup=\"_filter()\" placeholder=\"Search for keywords...\" title=\"SE\">\n"
+    body += gweb.getList(hl_folders, ordered=False, id="folders")
+    body += gweb.getList(hl_files, ordered=False, id="files")
+    return body
+
 def _makeIndexHTML(body, html_file, page_name):
     """ Generating HTML file for the Root index page """
     with open(html_file, "w") as f:
