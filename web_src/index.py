@@ -9,7 +9,7 @@ from jinja2 import Template
 from .utils import ColorMessage, getHtmlElement
 
 
-def _getIndexStyle(font="Chalkduster", bodycolor="silver", boxcolor="gray", hover="orange"):
+def _getIndexStyle(font="Chalkduster", theme="silver", boxcolor="gray", hovercolor="orange"):
     return """body {{
                 background-color: {BODY};
                 font-family: {FONT};
@@ -43,7 +43,7 @@ def _getIndexStyle(font="Chalkduster", bodycolor="silver", boxcolor="gray", hove
             #folders li a:hover:not(.header) {{
               background-color: {HOVER};
             }}
-    """.format(FONT=font, BODY=bodycolor, BOX=boxcolor, HOVER=hover)
+    """.format(FONT=font, BODY=theme, BOX=boxcolor, HOVER=hovercolor)
 
 
 def _getSearchScripts():
