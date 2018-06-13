@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            {{ styles | safe }}
+        </style>
+        <script>
+            {{ header_scripts | safe }}
+        </script>
+    </head>
+    <body>
+            {{ page_body | safe }}
+        <script>
+            {{ page_scripts | safe }}
+        </script>
+    </body>
+</html>

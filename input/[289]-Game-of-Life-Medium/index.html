@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            
+            body {
+                background-color: grey;
+            }
+            code {
+                background-color: orange;
+                color: darkblue;
+                white-space: pre;
+                font-family: fantasy;
+            }
+            h2 {
+                color: darkblue;
+            }
+            
+        </style>
+        <script>
+            
+        </script>
+    </head>
+    <body>
+            <h2>[289]-Game-of-Life-Medium</h2><p>[289] Game of Life  </p>
+
+<p>https://leetcode.com/problems/game-of-life/description/</p>
+
+<ul>
+<li>algorithms</li>
+<li>Medium (37.40%)</li>
+<li>Total Accepted:    70.6K</li>
+<li>Total Submissions: 188.6K</li>
+<li>Testcase Example:  '[[0,1,0],[0,0,1],[1,1,1],[0,0,0]]'</li>
+</ul>
+
+<p>According to the Wikipedia's article: "The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970."</p>
+
+<p>Given a board with m by n cells, each cell has an initial state live (1) or dead (0). Each cell interacts with its eight neighbors (horizontal, vertical, diagonal) using the following four rules (taken from the above Wikipedia article):</p>
+
+<pre><code>Any live cell with fewer than two live neighbors dies, as if caused by under-population.
+Any live cell with two or three live neighbors lives on to the next generation.
+Any live cell with more than three live neighbors dies, as if by over-population..
+Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+</code></pre>
+
+<p>Write a function to compute the next state (after one update) of the board given its current state. The next state is created by applying the above rules simultaneously to every cell in the current state, where births and deaths occur simultaneously.</p>
+
+<p>Example:</p>
+
+<p>Input: 
+[
+  [0,1,0],
+  [0,0,1],
+  [1,1,1],
+  [0,0,0]
+]
+Output: 
+[
+  [0,0,0],
+  [1,0,1],
+  [0,1,1],
+  [0,1,0]
+]</p>
+
+<p>Follow up:</p>
+
+<pre><code>Could you solve it in-place? Remember that the board needs to be updated at the same time: You cannot update some cells first and then use their updated values to update other cells.
+In this question, we represent the board using a 2D array. In principle, the board is infinite, which would cause problems when the active area encroaches the border of the array. How would you address these problems?
+</code></pre>
+
+        <script>
+            
+        </script>
+    </body>
+</html>

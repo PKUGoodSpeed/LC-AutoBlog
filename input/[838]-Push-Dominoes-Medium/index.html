@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            
+            body {
+                background-color: grey;
+            }
+            code {
+                background-color: orange;
+                color: darkblue;
+                white-space: pre;
+                font-family: fantasy;
+            }
+            h2 {
+                color: darkblue;
+            }
+            
+        </style>
+        <script>
+            
+        </script>
+    </head>
+    <body>
+            <h2>[838]-Push-Dominoes-Medium</h2><p>[838] Push Dominoes  </p>
+
+<p>https://leetcode.com/problems/push-dominoes/description/</p>
+
+<ul>
+<li>algorithms</li>
+<li>Medium (39.77%)</li>
+<li>Total Accepted:    3.2K</li>
+<li>Total Submissions: 8.1K</li>
+<li>Testcase Example:  '".L.R...LR..L.."'</li>
+</ul>
+
+<p>There are N dominoes in a line, and we place each domino vertically upright.</p>
+
+<p>In the beginning, we simultaneously push some of the dominoes either to the left or to the right.</p>
+
+<p>After each second, each domino that is falling to the left pushes the adjacent domino on the left.</p>
+
+<p>Similarly, the dominoes falling to the right push their adjacent dominoes standing on the right.</p>
+
+<p>When a vertical domino has dominoes falling on it from both sides, it stays still due to the balance of the forces.</p>
+
+<p>For the purposes of this question, we will consider that a falling domino expends no additional force to a falling or already fallen domino.</p>
+
+<p>Given a string "S" representing the initial state. S[i] = 'L', if the i-th domino has been pushed to the left; S[i] = 'R', if the i-th domino has been pushed to the right; S[i] = '.', if the i-th domino has not been pushed.</p>
+
+<p>Return a string representing the final state. </p>
+
+<p>Example 1:</p>
+
+<p>Input: ".L.R...LR..L.."
+Output: "LL.RR.LLRRLL.."</p>
+
+<p>Example 2:</p>
+
+<p>Input: "RR.L"
+Output: "RR.L"
+Explanation: The first domino expends no additional force on the second domino.</p>
+
+<p>Note:</p>
+
+<pre><code>0 &lt;= N &lt;= 10^5
+String dominoes contains only 'L', 'R' and '.'
+</code></pre>
+
+        <script>
+            
+        </script>
+    </body>
+</html>

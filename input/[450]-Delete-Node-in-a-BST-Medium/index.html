@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            
+            body {
+                background-color: grey;
+            }
+            code {
+                background-color: orange;
+                color: darkblue;
+                white-space: pre;
+                font-family: fantasy;
+            }
+            h2 {
+                color: darkblue;
+            }
+            
+        </style>
+        <script>
+            
+        </script>
+    </head>
+    <body>
+            <h2>[450]-Delete-Node-in-a-BST-Medium</h2><p>[450] Delete Node in a BST  </p>
+
+<p>https://leetcode.com/problems/delete-node-in-a-bst/description/</p>
+
+<ul>
+<li>algorithms</li>
+<li>Medium (37.71%)</li>
+<li>Total Accepted:    35.9K</li>
+<li>Total Submissions: 95.3K</li>
+<li>Testcase Example:  '[5,3,6,2,4,null,7]\n3'</li>
+</ul>
+
+<p>Given a root node reference of a BST and a key, delete the node with the given key in the BST. Return the root node reference (possibly updated) of the BST.</p>
+
+<p>Basically, the deletion can be divided into two stages:</p>
+
+<p>Search for a node to remove.
+If the node is found, delete the node.</p>
+
+<p>Note: Time complexity should be O(height of tree).</p>
+
+<p>Example:</p>
+
+<p>root = [5,3,6,2,4,null,7]
+key = 3</p>
+
+<pre><code>5
+</code></pre>
+
+<p>/ \
+  3   6
+ / \   \
+2   4   7</p>
+
+<p>Given key to delete is 3. So we find the node with value 3 and delete it.</p>
+
+<p>One valid answer is [5,4,6,2,null,null,7], shown in the following BST.</p>
+
+<pre><code>5
+</code></pre>
+
+<p>/ \
+  4   6
+ /     \
+2       7</p>
+
+<p>Another valid answer is [5,2,6,null,4,null,7].</p>
+
+<pre><code>5
+</code></pre>
+
+<p>/ \
+  2   6
+   \   \
+    4   7</p>
+
+        <script>
+            
+        </script>
+    </body>
+</html>

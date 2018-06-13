@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            
+            body {
+                background-color: grey;
+            }
+            code {
+                background-color: orange;
+                color: darkblue;
+                white-space: pre;
+                font-family: fantasy;
+            }
+            h2 {
+                color: darkblue;
+            }
+            
+        </style>
+        <script>
+            
+        </script>
+    </head>
+    <body>
+            <h2>[825]-Friends-Of-Appropriate-Ages-Medium</h2><p>[825] Friends Of Appropriate Ages  </p>
+
+<p>https://leetcode.com/problems/friends-of-appropriate-ages/description/</p>
+
+<ul>
+<li>algorithms</li>
+<li>Medium (27.82%)</li>
+<li>Total Accepted:    4K</li>
+<li>Total Submissions: 14.5K</li>
+<li>Testcase Example:  '[16,16]'</li>
+</ul>
+
+<p>Some people will make friend requests. The list of their ages is given and ages[i] is the age of the ith person. </p>
+
+<p>Person A will NOT friend request person B (B != A) if any of the following conditions are true:</p>
+
+<pre><code>age[B] &lt;= 0.5 * age[A] + 7
+age[B] &gt; age[A]
+age[B] &gt; 100 &amp;&amp; age[A] &lt; 100
+</code></pre>
+
+<p>Otherwise, A will friend request B.</p>
+
+<p>Note that if A requests B, B does not necessarily request A.  Also, people will not friend request themselves.</p>
+
+<p>How many total friend requests are made?</p>
+
+<p>Example 1:</p>
+
+<p>Input: [16,16]
+Output: 2
+Explanation: 2 people friend request each other.</p>
+
+<p>Example 2:</p>
+
+<p>Input: [16,17,18]
+Output: 2
+Explanation: Friend requests are made 17 -> 16, 18 -> 17.</p>
+
+<p>Example 3:</p>
+
+<p>Input: [20,30,100,110,120]
+Output: 
+Explanation: Friend requests are made 110 -> 100, 120 -> 110, 120 -> 100.</p>
+
+<p> </p>
+
+<p>Notes:</p>
+
+<pre><code>1 &lt;= ages.length &lt;= 20000.
+1 &lt;= ages[i] &lt;= 120.
+</code></pre>
+
+        <script>
+            
+        </script>
+    </body>
+</html>

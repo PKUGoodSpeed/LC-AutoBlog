@@ -4,6 +4,7 @@ import json
 from websrc.utils import ColorMessage, ProgressBar
 from websrc.index import makeSearchIndex
 from autoblog.database import getDataBase, initDataBase
+
 progressbar = ProgressBar()
 
 def _setupDirs(C):
@@ -67,4 +68,4 @@ if __name__ == "__main__":
     json_file = "./configs/setup.json"
     C = json.load(open(json_file, 'r'))
     _setupDirs(C)
-    _setupDesc(C)
+    # _setupDesc(C)

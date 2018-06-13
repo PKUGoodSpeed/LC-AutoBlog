@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            
+            body {
+                background-color: grey;
+            }
+            code {
+                background-color: orange;
+                color: darkblue;
+                white-space: pre;
+                font-family: fantasy;
+            }
+            h2 {
+                color: darkblue;
+            }
+            
+        </style>
+        <script>
+            
+        </script>
+    </head>
+    <body>
+            <h2>[770]-Basic-Calculator-IV-Hard</h2><p>[770] Basic Calculator IV  </p>
+
+<p>https://leetcode.com/problems/basic-calculator-iv/description/</p>
+
+<ul>
+<li>algorithms</li>
+<li>Hard (42.43%)</li>
+<li>Total Accepted:    774</li>
+<li>Total Submissions: 1.8K</li>
+<li>Testcase Example:  '"e + 8 - a + 5"\n["e"]\n[1]'</li>
+</ul>
+
+<p>Given an expression such as expression = "e + 8 - a + 5" and an evaluation map such as {"e": 1} (given in terms of evalvars = ["e"] and evalints = [1]), return a list of tokens representing the simplified expression, such as ["-1*a","14"]</p>
+
+<pre><code>An expression alternates chunks and symbols, with a space separating each chunk and symbol.
+A chunk is either an expression in parentheses, a variable, or a non-negative integer.
+A variable is a string of lowercase letters (not including digits.) Note that variables can be multiple letters, and note that variables never have a leading coefficient or unary operator like "2x" or "-x".
+</code></pre>
+
+<p>Expressions are evaluated in the usual order: brackets first, then multiplication, then addition and subtraction. For example, expression = "1 + 2 * 3" has an answer of ["7"].</p>
+
+<p>The format of the output is as follows:</p>
+
+<pre><code>For each term of free variables with non-zero coefficient, we write the free variables within a term in sorted order lexicographically. For example, we would never write a term like "b*a*c", only "a*b*c".
+Terms have degree equal to the number of free variables being multiplied, counting multiplicity. (For example, "a*a*b*c" has degree 4.) We write the largest degree terms of our answer first, breaking ties by lexicographic order ignoring the leading coefficient of the term.
+The leading coefficient of the term is placed directly to the left with an asterisk separating it from the variables (if they exist.)  A leading coefficient of 1 is still printed.
+An example of a well formatted answer is ["-2*a*a*a", "3*a*a*b", "3*b*b", "4*a", "5*c", "-6"] 
+Terms (including constant terms) with coefficient 0 are not included.  For example, an expression of "0" has an output of [].
+</code></pre>
+
+<p>Examples:</p>
+
+<p>Input: expression = "e + 8 - a + 5", evalvars = ["e"], evalints = [1]
+Output: ["-1*a","14"]</p>
+
+<p>Input: expression = "e - 8 + temperature - pressure",
+evalvars = ["e", "temperature"], evalints = [1, 12]
+Output: ["-1*pressure","5"]</p>
+
+<p>Input: expression = "(e + 8) * (e - 8)", evalvars = [], evalints = []
+Output: ["1<em>e</em>e","-64"]</p>
+
+<p>Input: expression = "7 - 7", evalvars = [], evalints = []
+Output: []</p>
+
+<p>Input: expression = "a * b * c + b * a * c * 4", evalvars = [], evalints = []
+Output: ["5<em>a</em>b*c"]</p>
+
+<p>Input: expression = "((a - b) * (b - c) + (c - a)) * ((a - b) + (b - c) * (c - a))",
+evalvars = [], evalints = []
+Output: ["-1<em>a</em>a<em>b</em>b","2<em>a</em>a<em>b</em>c","-1<em>a</em>a<em>c</em>c","1<em>a</em>b<em>b</em>b","-1<em>a</em>b<em>b</em>c","-1<em>a</em>b<em>c</em>c","1<em>a</em>c<em>c</em>c","-1<em>b</em>b<em>b</em>c","2<em>b</em>b<em>c</em>c","-1<em>b</em>c<em>c</em>c","2<em>a</em>a<em>b","-2</em>a<em>a</em>c","-2<em>a</em>b<em>b","2</em>a<em>c</em>c","1<em>b</em>b<em>b","-1</em>b<em>b</em>c","1<em>b</em>c<em>c","-1</em>c<em>c</em>c","-1<em>a</em>a","1<em>a</em>b","1<em>a</em>c","-1<em>b</em>c"]</p>
+
+<p>Note:</p>
+
+<pre><code>expression will have length in range [1, 250].
+evalvars, evalints will have equal lengths in range [0, 100].
+</code></pre>
+
+        <script>
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            
+            body {
+                background-color: grey;
+            }
+            code {
+                background-color: orange;
+                color: darkblue;
+                white-space: pre;
+                font-family: fantasy;
+            }
+            h2 {
+                color: darkblue;
+            }
+            
+        </style>
+        <script>
+            
+        </script>
+    </head>
+    <body>
+            <h2>[606]-Construct-String-from-Binary-Tree-Easy</h2><p>[606] Construct String from Binary Tree  </p>
+
+<p>https://leetcode.com/problems/construct-string-from-binary-tree/description/</p>
+
+<ul>
+<li>algorithms</li>
+<li>Easy (49.96%)</li>
+<li>Total Accepted:    37.1K</li>
+<li>Total Submissions: 74.2K</li>
+<li>Testcase Example:  '[1,2,3,4]'</li>
+</ul>
+
+<p>You need to construct a string consists of parenthesis and integers from a binary tree with the preorder traversing way.</p>
+
+<p>The null node needs to be represented by empty parenthesis pair "()". And you need to omit all the empty parenthesis pairs that don't affect the one-to-one mapping relationship between the string and the original binary tree.</p>
+
+<p>Example 1:</p>
+
+<p>Input: Binary tree: [1,2,3,4]
+       1
+     /   \
+    2     3
+   / <br />
+  4     </p>
+
+<p>Output: "1(2(4))(3)"
+Explanation: Originallay it needs to be "1(2(4)())(3()())", but you need to omit all the unnecessary empty parenthesis pairs. And it will be "1(2(4))(3)".</p>
+
+<p>Example 2:</p>
+
+<p>Input: Binary tree: [1,2,3,null,4]
+       1
+     /   \
+    2     3
+     \ <br />
+      4 </p>
+
+<p>Output: "1(2()(4))(3)"
+Explanation: Almost the same as the first example, except we can't omit the first parenthesis pair to break the one-to-one mapping relationship between the input and the output.</p>
+
+        <script>
+            
+        </script>
+    </body>
+</html>

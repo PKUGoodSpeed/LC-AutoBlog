@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            
+            body {
+                background-color: grey;
+            }
+            code {
+                background-color: orange;
+                color: darkblue;
+                white-space: pre;
+                font-family: fantasy;
+            }
+            h2 {
+                color: darkblue;
+            }
+            
+        </style>
+        <script>
+            
+        </script>
+    </head>
+    <body>
+            <h2>[262]-Trips-and-Users-Hard</h2><p>[262] Trips and Users  </p>
+
+<p>https://leetcode.com/problems/trips-and-users/description/</p>
+
+<ul>
+<li>database</li>
+<li>Hard (20.13%)</li>
+<li>Total Accepted:    19.7K</li>
+<li>Total Submissions: 98K</li>
+<li>Testcase Example:  '{"headers": {"Trips": ["Id", "Client<em>Id", "Driver</em>Id", "City<em>Id", "Status", "Request</em>at"], "Users": ["Users<em>Id", "Banned", "Role"]}, "rows": {"Trips": [["1", "1", "10", "1", "completed", "2013-10-01"], ["2", "2", "11", "1", "cancelled</em>by<em>driver", "2013-10-01"], ["3", "3", "12", "6", "completed", "2013-10-01"], ["4", "4", "13", "6", "cancelled</em>by<em>client", "2013-10-01"], ["5", "1", "10", "1", "completed", "2013-10-02"], ["6", "2", "11", "6", "completed", "2013-10-02"], ["7", "3", "12", "6", "completed", "2013-10-02"], ["8", "2", "12", "12", "completed", "2013-10-03"], ["9", "3", "10", "12", "completed", "2013-10-03"], ["10", "4", "13", "12", "cancelled</em>by_driver", "2013-10-03"]], "Users": [["1", "No", "client"], ["2", "Yes", "client"], ["3", "No", "client"], ["4", "No", "client"], ["10", "No", "driver"], ["11", "No", "driver"], ["12", "No", "driver"], ["13", "No", "driver"]]}}'</li>
+</ul>
+
+<p>The Trips table holds all taxi trips. Each trip has a unique Id, while Client<em>Id and Driver</em>Id are both foreign keys to the Users<em>Id at the Users table. Status is an ENUM type of (‘completed’, ‘cancelled</em>by<em>driver’, ‘cancelled</em>by_client’).</p>
+
+<p>+----+-----------+-----------+---------+--------------------+----------+
+| Id | Client<em>Id | Driver</em>Id | City<em>Id |        Status      |Request</em>at|
++----+-----------+-----------+---------+--------------------+----------+
+| 1  |     1     |    10     |    1    |     completed      |2013-10-01|
+| 2  |     2     |    11     |    1    | cancelled<em>by</em>driver|2013-10-01|
+| 3  |     3     |    12     |    6    |     completed      |2013-10-01|
+| 4  |     4     |    13     |    6    | cancelled<em>by</em>client|2013-10-01|
+| 5  |     1     |    10     |    1    |     completed      |2013-10-02|
+| 6  |     2     |    11     |    6    |     completed      |2013-10-02|
+| 7  |     3     |    12     |    6    |     completed      |2013-10-02|
+| 8  |     2     |    12     |    12   |     completed      |2013-10-03|
+| 9  |     3     |    10     |    12   |     completed      |2013-10-03| 
+| 10 |     4     |    13     |    12   | cancelled<em>by</em>driver|2013-10-03|
++----+-----------+-----------+---------+--------------------+----------+</p>
+
+<p>The Users table holds all users. Each user has an unique Users_Id, and Role is an ENUM type of (‘client’, ‘driver’, ‘partner’).</p>
+
+<p>+----------+--------+--------+
+| Users_Id | Banned |  Role  |
++----------+--------+--------+
+|    1     |   No   | client |
+|    2     |   Yes  | client |
+|    3     |   No   | client |
+|    4     |   No   | client |
+|    10    |   No   | driver |
+|    11    |   No   | driver |
+|    12    |   No   | driver |
+|    13    |   No   | driver |
++----------+--------+--------+</p>
+
+<p>Write a SQL query to find the cancellation rate of requests made by unbanned users between Oct 1, 2013 and Oct 3, 2013. For the above tables, your SQL query should return the following rows with the cancellation rate being rounded to two decimal places.</p>
+
+<p>+------------+-------------------+
+|     Day    | Cancellation Rate |
++------------+-------------------+
+| 2013-10-01 |       0.33        |
+| 2013-10-02 |       0.00        |
+| 2013-10-03 |       0.50        |
++------------+-------------------+</p>
+
+<p>Credits:
+Special thanks to @cak1erlizhou for contributing this question, writing the problem description and adding part of the test cases.</p>
+
+        <script>
+            
+        </script>
+    </body>
+</html>

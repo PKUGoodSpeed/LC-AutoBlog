@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            
+            body {
+                background-color: grey;
+            }
+            code {
+                background-color: orange;
+                color: darkblue;
+                white-space: pre;
+                font-family: fantasy;
+            }
+            h2 {
+                color: darkblue;
+            }
+            
+        </style>
+        <script>
+            
+        </script>
+    </head>
+    <body>
+            <h2>[565]-Array-Nesting-Medium</h2><p>[565] Array Nesting  </p>
+
+<p>https://leetcode.com/problems/array-nesting/description/</p>
+
+<ul>
+<li>algorithms</li>
+<li>Medium (49.66%)</li>
+<li>Total Accepted:    20.1K</li>
+<li>Total Submissions: 40.5K</li>
+<li>Testcase Example:  '[5,4,0,3,1,6,2]'</li>
+</ul>
+
+<p>A zero-indexed array A of length N contains all integers from 0 to N-1. Find and return the longest length of set S, where S[i] = {A[i], A[A[i]], A[A[A[i]]], ... } subjected to the rule below.</p>
+
+<p>Suppose the first element in S starts with the selection of element A[i] of index = i, the next element in S should be A[A[i]], and then A[A[A[i]]]… By that analogy, we stop adding right before a duplicate element occurs in S.</p>
+
+<p>Example 1:</p>
+
+<p>Input: A = [5,4,0,3,1,6,2]
+Output: 4
+Explanation: 
+A[0] = 5, A[1] = 4, A[2] = 0, A[3] = 3, A[4] = 1, A[5] = 6, A[6] = 2.</p>
+
+<p>One of the longest S[K]:
+S[0] = {A[0], A[5], A[6], A[2]} = {5, 6, 2, 0}</p>
+
+<p>Note:</p>
+
+<p>N is an integer within the range [1, 20,000].
+The elements of A are all distinct.
+Each element of A is an integer within the range [0, N-1].</p>
+
+        <script>
+            
+        </script>
+    </body>
+</html>
