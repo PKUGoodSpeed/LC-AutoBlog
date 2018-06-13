@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 import os
 import json
-from web_src.utils import ColorMessage
-from web_src.index import makeSearchIndex
-from auto_blog.database import getDataBase, initDataBase
+from websrc.utils import ColorMessage
+from websrc.index import makeSearchIndex
+from autoblog.database import getDataBase, initDataBase
 
 def _setupDirs(C):
     title_file = C['title_file']
