@@ -1,6 +1,6 @@
 {
     "title_file": "/home/pkugoodspeed/git/myGit/LC-AutoBlog/leetcode_titles.txt",
-    "local_dir": "/home/pkugoodspeed/git/myGit/LC-AutoBlog/LC-AutoBlog/input",
+    "local_dir": "/home/pkugoodspeed/git/myGit/LC-AutoBlog/input",
     "target_dir": "/home/pkugoodspeed/tmp",
     "target_web": "https://jogchat.com/leetcode_blogs",
     "templates": "./templates",
