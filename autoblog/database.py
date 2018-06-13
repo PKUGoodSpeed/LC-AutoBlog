@@ -90,6 +90,7 @@ def initDescriptions(C):
                     'question/index.html', 
                     styles=styles,
                     page_body=html))
+            os.chmod(target_dir + "/" + f + "/index.html", 0o777)
             click.echo("Deployed description of " + f + " into webpage!")
         except:
             click.echo("Warning: Deploying description for " + f + " failed!")
