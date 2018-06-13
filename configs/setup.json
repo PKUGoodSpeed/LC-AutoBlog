@@ -1,7 +1,7 @@
 {
-    "title_file": "/home/pkugoodspeed/git/LC-AutoBlog/leetcode_titles.txt",
-    "local_dir": "/home/pkugoodspeed/git/LC-AutoBlog/input",
-    "target_dir": "/var/www/html/leetcode_blogs",
+    "title_file": "/home/pkugoodspeed/git/myGit/LC-AutoBlog/leetcode_titles.txt",
+    "local_dir": "/home/pkugoodspeed/git/myGit/LC-AutoBlog/LC-AutoBlog/input",
+    "target_dir": "/home/pkugoodspeed/tmp",
     "target_web": "https://jogchat.com/leetcode_blogs",
     "templates": "./templates",
     "database": "/home/zebo/git/myRep/flask/LC-AutoBlog/autoblog/instance"
