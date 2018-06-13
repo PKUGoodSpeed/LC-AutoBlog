@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="username">Username</label>
+    <input name="username" id="username" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+    <label for="verify_password">Verify Password</label>
+    <input type="password" name="verify_password" id="verify_password" required>
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" required>
+    <br>
+    <label for="security">Please answer the question to get registered:
+        <div><small>
+            <p style="color:orange">
+                Which great man invent General Relativity?
+            </p>
+        </div></small>
+    </label>
+    <input type="security" name="security" id="security" required>
+    <br>
+    <input type="submit" value="Register">
+  </form>
+{% endblock %}

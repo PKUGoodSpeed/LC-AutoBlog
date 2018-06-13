@@ -3,9 +3,9 @@ import os
 import json
 from web_src.utils import ColorMessage
 from web_src.index import makeSearchIndex
+from auto_blog.database import getDataBase, initDataBase
 
-def _setupDirs(json_file):
-    C = json.load(open(json_file, 'r'))
+def _setupDirs(C):
     title_file = C['title_file']
     local_dir = C["local_dir"]
     target_dir = C["target_dir"]
@@ -35,9 +35,9 @@ def _setupDirs(json_file):
     ColorMessage("Setup Leetcode Web Directory Finished. Please check manually as well!", "magenta")
     makeSearchIndex(target_dir, target_web, templates + "/base.html")
     ColorMessage("Setup Index Page Finished.", "magenta")
-    
 
 
 if __name__ == "__main__":
     json_file = "./configs/setup.json"
-    _setupDirs(json_file)
+    C = json.load(open(json_file, 'r'))
+    _setupDirs(C)

@@ -4,14 +4,14 @@ sandbox*.py
 # Data for TensorFlow
 instance/
 data/
-inception/
-vgg16/
 checkpoints/
 checkpoints*
 logs/
 summary/
 embs/
 submissions/
+instance/
+
 # PyCharm
 .idea/
 
@@ -38,6 +38,4 @@ apps/
 *.hdf5
 *.h5
 *.pyc
-
-runFinetuneImagenet/base/*
-runFinetuneImagenet/rank/*
+*.database

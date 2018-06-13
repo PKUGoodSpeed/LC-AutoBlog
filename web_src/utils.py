@@ -1,3 +1,4 @@
+import sqlite3
 from termcolor import colored
 
 def ColorMessage(msg, color):

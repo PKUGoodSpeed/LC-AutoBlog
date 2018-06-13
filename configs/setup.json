@@ -3,5 +3,6 @@
     "local_dir": "/home/zebo/git/myRep/flask/LC-AutoBlog/input",
     "target_dir": "/home/zebo/git/myRep/flask/LC-AutoBlog/data",
     "target_web": "https://jogchat.com/leetcode_blogs",
-    "templates": "./templates"
+    "templates": "./templates",
+    "database": "/home/zebo/git/myRep/flask/LC-AutoBlog/autoblog/instance"
 }

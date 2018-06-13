@@ -14,6 +14,11 @@ def getDataBase():
     return g.database
 
 
+def setupQuestionTable(target_dir):
+    database = getDataBase()
+    
+
+
 def closeDataBase(e=None):
     database = g.pop('database', None)
     if database is not None:
