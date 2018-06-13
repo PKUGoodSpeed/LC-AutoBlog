@@ -9,7 +9,7 @@ from jinja2 import Template
 from .utils import ColorMessage, getHtmlElement
 
 
-def _getIndexStyle(font="Chalkduster", theme="silver", boxcolor="gray", hovercolor="orange"):
+def getIndexStyle(font="Chalkduster", theme="silver", boxcolor="gray", hovercolor="orange"):
     return """body {{
                 background-color: {BODY};
                 font-family: {FONT};
@@ -46,7 +46,7 @@ def _getIndexStyle(font="Chalkduster", theme="silver", boxcolor="gray", hovercol
     """.format(FONT=font, BODY=theme, BOX=boxcolor, HOVER=hovercolor)
 
 
-def _getSearchScripts():
+def getSearchScripts():
     """
     Here we only consider folders
     """
@@ -79,7 +79,23 @@ def _getSearchScripts():
             }
     """
 
-def _getIndexBody(path, addr):
+
+def getIndexBodyFromList(q_list, addr):
+    folders = [f for f in q_list if f[0] == "["]
+    folders.sort(key=lambda x: int(x[1:].split("]")[0]))
+    hl_folders = [getHtmlElement(
+        tag='a', selfclose=False, msg=f, href="\"{ADDR}/{F}\"".format(ADDR=addr, F=f), target="\"_self\"") for f in folders]
+    li_folders = [getHtmlElement(tag='li', msg=f) for f in hl_folders]
+
+    body = getHtmlElement(tag="h1", msg="Problems") + "\n"
+    body += getHtmlElement(
+        tag="input", msg="", selfclose=True, type="\"text\"", id="\"Input\"",
+        onkeyup="\"_filter()\"", placeholder="\"Search for keywords...\"", title="\"SE\"") + "\n"
+    body += getHtmlElement(tag='ul', msg="\n".join(li_folders), selfclose=False, id="\"folders\"")
+    return body
+
+
+def getIndexBody(path, addr):
     if not os.path.exists(path):
         ColorMessage(path + " does not exist!", "red")
     folders = [f for f in os.listdir(path) if os.path.isdir(path + "/" + f) and f[0] == "["]
@@ -106,11 +122,11 @@ def makeSearchIndex(path, addr, template_file="./templates/base.html"):
     if os.path.exists(index_file):
         os.remove(index_file)
     ColorMessage("\tGetting styles...", "cyan")
-    styles=_getIndexStyle()
+    styles=getIndexStyle()
     ColorMessage("\tGetting page contents...", "cyan")
-    page_body=_getIndexBody(path, addr)
+    page_body=getIndexBody(path, addr)
     ColorMessage("\tGetting search scripts...", "cyan")
-    page_scripts = _getSearchScripts()
+    page_scripts = getSearchScripts()
     try:
         with open(path + "/index.html", "w") as idx:
             idx.write(template.render(

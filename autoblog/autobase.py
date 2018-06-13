@@ -16,12 +16,8 @@ initApp()
 app.register_blueprint(auth.blueprint)
 app.register_blueprint(question.blueprint)
 app.register_blueprint(solution.blueprint)
-app.add_url_rule("/", endpoint='index')
+# app.add_url_rule("/", endpoint='qustion.index')
 
 @app.route('/config')
 def getConfig():
     return str(dict(app.config))
-
-@app.route('/index')
-def index():
-    return "Succeed!!!"

@@ -63,7 +63,7 @@ def login():
         if not error:
             session.clear()
             session['user_id'] = user["id"]
-            return redirect(url_for('index'))
+            return redirect(url_for('question.index'))
 
         flash(error)
     return render_template('auth/login.html')
@@ -84,7 +84,7 @@ def loadLoggedInUser():
 @blueprint.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('auth.login'))
 
 
 # Authentication views
