@@ -96,6 +96,32 @@ def initDescriptions(C):
             click.echo("Warning: Deploying description for " + f + " failed!")
 
 
+
+def dumpDatabase(C):
+    q_db = getDataBase()
+    local_dir = C["local_dir"]
+    title_file = C["title_file"]
+    click.echo("Dumping database to " + local_dir + " ...")
+    if not os.path.exists(local_dir):
+        os.makedirs(local_dir)
+    with open(title_file, "r") as fin:
+        for line in fin:
+            q_title = line.replace("\n", "")
+            q_dir = local_dir + "/" + q_title
+            if not os.path.exists(q_dir):
+                os.makedirs(q_dir)
+            q_data = q_db.execute(
+                "SELECT * FROM question WHERE title = ?", (q_title, )
+            ).fetchone()
+            if not q_data:
+                click.echo(q_title + "does not exist in database!")
+            try:
+                with open(q_dir + "/README.md", "w") as fout:
+                    fout.write(q_data["description"])
+            except:
+                click.echo("Dumping " + q_title + " failed!. Please do it manually!")
+
+
 @click.command('init-database')
 @click.option('--cfg', help='config file', default='./setup.json')
 @with_appcontext
@@ -108,6 +134,20 @@ def initDataBaseCommand(cfg):
     initDescriptions(C)
     click.echo("Initialized the database!!")
 
+
+@click.command('dump-database')
+@click.option('--cfg', help='config file', default='./setup.json')
+@with_appcontext
+def dumpDataBaseCommand(cfg):
+    if not os.path.exists(cfg):
+        click.echo("Error: config file does not exist!")
+    import json
+    C = json.load(open(cfg, "r"))
+    dumpDatabase(C)
+    click.echo("Finish dumping database!!")
+
+
 def initApp():
     app.teardown_appcontext(closeDataBase)
     app.cli.add_command(initDataBaseCommand)
+    app.cli.add_command(dumpDataBaseCommand)
