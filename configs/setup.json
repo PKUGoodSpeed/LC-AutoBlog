@@ -3,6 +3,6 @@
     "local_dir": "./input",
     "target_dir": "/home/pkugoodspeed/tmp",
     "target_web": "https://jogchat.com/leetcode_blogs",
-    "templates": "./templates",
+    "templates": "./autoblog/templates",
     "database": "./instance/test.database"
 }

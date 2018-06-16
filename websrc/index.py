@@ -84,7 +84,7 @@ def getIndexBodyFromList(q_list, addr):
     folders = [f for f in q_list if f[0] == "["]
     folders.sort(key=lambda x: int(x[1:].split("]")[0]))
     hl_folders = [getHtmlElement(
-        tag='a', selfclose=False, msg=f, href="\"{ADDR}/{F}\"".format(ADDR=addr, F=f), target="\"_self\"") for f in folders]
+        tag='a', selfclose=False, msg=f, href="\"{ADDR}{F}\"".format(ADDR=addr, F=f), target="\"_self\"") for f in folders]
     li_folders = [getHtmlElement(tag='li', msg=f) for f in hl_folders]
 
     body = getHtmlElement(tag="h1", msg="Problems") + "\n"
@@ -101,7 +101,7 @@ def getIndexBody(path, addr):
     folders = [f for f in os.listdir(path) if os.path.isdir(path + "/" + f) and f[0] == "["]
     folders.sort(key=lambda x: int(x[1:].split("]")[0]))
     hl_folders = [getHtmlElement(
-        tag='a', selfclose=False, msg=f, href="\"{ADDR}/{F}\"".format(ADDR=addr, F=f), target="\"_self\"") for f in folders]
+        tag='a', selfclose=False, msg=f, href="\"{ADDR}{F}\"".format(ADDR=addr, F=f), target="\"_self\"") for f in folders]
     li_folders = [getHtmlElement(tag='li', msg=f) for f in hl_folders]
 
     body = getHtmlElement(tag="h1", msg="Problems") + "\n"

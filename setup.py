@@ -12,6 +12,8 @@ def _setupDirs(C):
     local_dir = C["local_dir"]
     target_dir = C["target_dir"]
     target_web = C["target_web"]
+    if target_web[-1] != "/":
+        target_web += "/"
     templates = C["templates"]
     if not os.path.exists(target_dir):
         os.makedirs(target_dir)
@@ -35,7 +37,7 @@ def _setupDirs(C):
                 msg = "Cannot change the permission level for " + problem_dir
                 ColorMessage(msg, "red")
     ColorMessage("Setup Leetcode Web Directory Finished. Please check manually as well!", "magenta")
-    makeSearchIndex(target_dir, target_web, templates + "/base.html")
+    makeSearchIndex(target_dir, target_web, templates + "/question/index.html")
     ColorMessage("Setup Index Page Finished.", "magenta")
 
 

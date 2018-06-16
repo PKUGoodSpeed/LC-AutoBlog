@@ -15,7 +15,7 @@ def index():
     questions = database.execute(
         'SELECT title FROM question').fetchall()
     folders = [q["title"] for q in questions]
-    addr = "http://" + request.host + "/question?qdisplay="
+    addr = "http://" + request.host + "/question?q_title="
     styles = windex.getIndexStyle(theme="cyan")
     page_body = getHtmlElement(tag='h4', msg="editor mode", selfclose=False, style="\"color:magenta\"")
     page_body += windex.getIndexBodyFromList(folders, addr)
@@ -25,4 +25,16 @@ def index():
         styles=styles,
         page_body=page_body,
         page_scripts=page_scripts)
+
+
+@blueprint.route("/question", methods=('GET', 'POST'))
+@loginRequired
+def editDescription():
+    q_title = request.args.get("q_title", type=str)
+    database = getDataBase()
+    q_data = database.execute(
+        "SELECT * FROM question WHERE title = ?", (q_title, )
+    ).fetchone()
+    return q_data["description"]
+    
 
