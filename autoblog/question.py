@@ -98,7 +98,22 @@ def editQuestion():
         NAVS=navs)
 
 
- 
+def deploySingleSolution(s_id):
+    from websrc.codeblock import getSolutionPage
+    s_data = getDataBase().execute(
+        "SELECT * FROM solution WHERE solution_id = ?", (str(s_id))).fetchone()
+    q_data = getDataBase().execute(
+        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']))).fetchone()
+    solution_path = "/".join(
+        [C['target_dir'], q_data['title'], s_data['nickname'] + ".html"])
+    solution_addr = "/".join(
+        [C['target_web'], q_data['title'], s_data['nickname'] + ".html"])
+    page_content = getSolutionPage(
+        q_data['title'], s_data, C['templates'] + "/solution.html", C['target_web'])
+    with open(solution_path, "w") as fout:
+        fout.write(page_content)
+
+
 @blueprint.route("/qdeploy", methods=('GET', 'POST'))
 @loginRequired
 def deployQuestion():
@@ -112,6 +127,8 @@ def deployQuestion():
         q_title, q_data["description"], solutions, C["templates"] + "/question.html", C["target_web"])
     with open(question_dir + "/index.html", "w") as fout:
         fout.write(page_content)
+    for solu in solutions:
+        deploySingleSolution(solu['solution_id'])
     return redirect(question_addr)
      
 

@@ -11,7 +11,7 @@ from flask import Blueprint, flash, g, redirect, render_template, request, sessi
 from werkzeug.security import check_password_hash, generate_password_hash
 from .auth import loginRequired
 from .database import getDataBase
-from .question import getQData
+from .question import getQData, deploySingleSolution
 from . import SETUP_CFG as C
 
 blueprint = Blueprint('solution', __name__, url_prefix='/solution')
