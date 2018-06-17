@@ -39,3 +39,4 @@ apps/
 *.h5
 *.pyc
 *.database
+*.json
