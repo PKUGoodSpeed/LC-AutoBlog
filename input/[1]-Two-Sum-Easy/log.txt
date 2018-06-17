@@ -1,0 +1,3 @@
+  ✔ Accepted
+  ✔ 20/20 cases passed (9 ms)
+  ✔ Your runtime beats 69.96 % of cpp submissions

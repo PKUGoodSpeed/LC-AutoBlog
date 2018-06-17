@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{{ Q['title'] | safe }}{% endblock %}</h1>
+  <style type="text/css">
+  </style>
+{% endblock %}
+
+{% block content %}
+  <!-- Question description block -->
+  <article class="post">
+    <h1>Question Description:<h1>
+    <div>
+      {{ Q_desc | safe }}
+    </div>
+    <div>
+      <a class="edit" href="{{ url_for('question.editQuestion', q_title= Q['title']) | safe }}">Edit</a>
+    </div>
+  </article>
+  <br>
+  <hr>
+  <br>
+  <h1> Solutions: <h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('solution.createSolution', q_title= Q['title']) | safe }}">Add Solution</a>
+  {% endif %}
+  <br>
+  {% for S in SOLUS %}
+    <article class="post">
+      <header>
+        <div>
+          <h1>{{ S['nickname'] | safe }}</h1>
+        </div>
+        {% if g.user['id'] == S['author_id'] %}
+          <a class="action" href="{{ url_for('solution.showSolution', s_id=S['solution_id']) | safe }}">View</a>
+        {% endif %}
+      </header>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

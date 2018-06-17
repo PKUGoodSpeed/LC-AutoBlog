@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{{ Q['title'] | safe }}{% endblock %}</h1>
+  <h1>---{{ S['nickname'] | safe }}</h1>
+  <style type="text/css">
+  body{
+      background-color: cyan;
+      font-family: Chalkduster;
+  }
+  pre{
+      background-color: silver;
+      color: brown;
+  }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <h5> {{ S['language'] | safe }} <h5>
+  <!-- Solution sorce code -->
+  <code>
+<pre>{{ S['sourcecode'] }}</pre>
+  </code>
+  {% if g.user['id'] == S['author_id'] %}
+<a class="action" href="{{ url_for('solution.editCode', s_id=S['solution_id']) | safe }}">Edit Code</a>
+  {% endif %}
+  <!-- Solution description block -->
+  <div>
+      <article>
+          {{ S_des | safe }}
+      </article>
+  {% if g.user['id'] == S['author_id'] %}
+<a class="action" href="{{ url_for('solution.editInter', s_id=S['solution_id']) | safe }}">Edit Interpretation</a>
+  {% endif %}
+  <div>
+  
+{% endblock %}

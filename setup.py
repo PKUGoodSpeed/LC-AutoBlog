@@ -37,7 +37,7 @@ def _setupDirs(C):
                 msg = "Cannot change the permission level for " + problem_dir
                 ColorMessage(msg, "red")
     ColorMessage("Setup Leetcode Web Directory Finished. Please check manually as well!", "magenta")
-    makeSearchIndex(target_dir, target_web, templates + "/question/index.html")
+    makeSearchIndex(target_dir, target_web, templates + "/index.html")
     ColorMessage("Setup Index Page Finished.", "magenta")
 
 

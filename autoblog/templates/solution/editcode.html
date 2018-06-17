@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{{ Q['title'] | safe }}{% endblock %}</h1>
+  <h1>---{{ S['nickname'] | safe }}</h1>
+  <style type="text/css">
+  body{
+      background-color: cyan;
+      font-family: Chalkduster;
+  }
+  pre{
+      background-color: silver;
+      color: brown;
+  }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <h5> {{ S['language'] | safe }} <h5>
+  <!-- Solution sorce code -->
+  <form method="post">
+    <label for="language">Language</label>
+    <input name="language" id="language" value="{{S['language'] | safe}}" required>
+    <label for="sourcecode">Sourcecode</label>
+    <textarea name="sourcecode" id="sourcecode" rows="20">{{S['sourcecode'] | safe}}</textarea>
+    <input type="submit" value="Save">
+  </form>
+  <!-- Solution description block -->
+  <div>
+      <article>
+          {{ S_des | safe }}
+      </article>
+  <div>
+  
+{% endblock %}

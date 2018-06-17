@@ -1,6 +1,4 @@
-[4] Median of Two Sorted Arrays  
-
-https://leetcode.com/problems/median-of-two-sorted-arrays/description/
+ [leetcode link](https://leetcode.com/problems/median-of-two-sorted-arrays/description/)
 
 * algorithms
 * Hard (23.32%)
@@ -29,3 +27,7 @@ nums2 = [3, 4]
 The median is (2 + 3)/2 = 2.5
 
 
+中文测试
+
+
+       

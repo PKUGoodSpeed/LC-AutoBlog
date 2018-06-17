@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{{ Q['title'] | safe }}{% endblock %}</h1>
+  <h1>---{{ S['nickname'] | safe }}</h1>
+  <style type="text/css">
+  body{
+      background-color: cyan;
+      font-family: Chalkduster;
+  }
+  pre{
+      background-color: silver;
+      color: brown;
+  }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <h5> {{ S['language'] | safe }} <h5>
+  <!-- Solution sorce code -->
+  <code>
+<pre>{{ S['sourcecode'] }}</pre>
+  </code>
+  {% if g.user['id'] == S['author_id'] %}
+<a class="action" href="{{ url_for('solution.editCode', s_id=S['solution_id']) | safe }}">Edit Code</a>
+  {% endif %}
+  <!-- Solution description block -->
+  <form method="post">
+    <label for="nickname">Title</label>
+    <input name="nickname" id="nickname" value="" required>
+
+    <label for="interpretation">Interpretation</label>
+    <textarea name="interpretation" id="interpretation" rows="30"></textarea>
+
+    <input type="submit" value="Save">
+  </form>
+  
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1> Editting {{ Q['title'] | safe }}</h1>
+  <style type="text/css">
+    body {
+      background-color: cyan;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<article class="post">
+  <form method="post">
+    <label for="q_desc" style="font-family:Chalkduster">Question Description (<i>Use markdown format</i>)</label>
+    <textarea name="q_desc" id="q_desc" rows="40"> {{ Q['description'] | safe }} </textarea>
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+</article>
+{% endblock %}

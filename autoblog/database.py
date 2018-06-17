@@ -1,6 +1,6 @@
 import os
 import sqlite3
-import markdown2
+from markdown2 import markdown
 from . import app
 import click
 from flask import g, render_template
@@ -71,7 +71,7 @@ def initDescriptions(C):
         try:
             styles = """
             body {
-                background-color: grey;
+                background-color: cyan;
             }
             code {
                 background-color: orange;
@@ -85,9 +85,9 @@ def initDescriptions(C):
             """
             with open(target_dir + "/" + f + "/index.html", "w") as fout:
                 html = getHtmlElement(tag="h2", msg=f, selfclose=False)
-                html += markdown2.markdown(md)
+                html += markdown(md)
                 fout.write(render_template(
-                    'question/index.html', 
+                    'index.html', 
                     styles=styles,
                     page_body=html))
             os.chmod(target_dir + "/" + f + "/index.html", 0o777)
@@ -122,32 +122,104 @@ def dumpDatabase(C):
                 click.echo("Dumping " + q_title + " failed!. Please do it manually!")
 
 
+def dumpDescription(C, q_id):
+    q_db = getDataBase()
+    local_dir = C["local_dir"]
+    click.echo("Dumping description for " + str(q_id) + " to " + local_dir + " ...")
+    q_data = q_db.execute(
+        "SELECT * FROM question WHERE id = ?", (q_id, )).fetchone()
+    if not q_data:
+        click.echo("Question " + str(q_id) + " does not exist in database!")
+        return
+    q_dir = local_dir + "/" + q_data["title"]
+    if not os.path.exists(q_dir):
+        os.makedirs(q_dir)
+    try:
+        with open(q_dir + "/README.md", "w") as fout:
+            fout.write(q_data["description"])
+        click.echo("Dumping succeed!")
+    except:
+        click.echo("Dumping " + q_data["title"] + " failed!. Please do it manually!")
+
+
+def deployDescription(C, q_id):
+    from websrc.utils import getHtmlElement
+    q_db = getDataBase()
+    target_dir = C["target_dir"]
+    click.echo("Deploying description for " + str(q_id) + " to " + target_dir + " ...")
+    q_data = q_db.execute(
+        "SELECT * FROM question WHERE id = ?", (q_id, )).fetchone()
+    if not q_data:
+        click.echo("Question " + str(q_id) + " does not exist in database!")
+        return
+    q_dir = target_dir + "/" + q_data["title"]
+    if not os.path.exists(q_dir):
+        os.makedirs(q_dir)
+    try:
+        styles = """
+            body {
+                background-color: white;
+            }
+            code {
+                background-color: orange;
+                color: darkblue;
+                white-space: pre;
+                font-family: fantasy;
+            }
+            h2 {
+                color: darkblue;
+            }
+        """
+        with open(q_dir + "/index.html", "w") as fout:
+            html = getHtmlElement(tag="h2", msg=q_data["title"], selfclose=False)
+            html += markdown(q_data["description"])
+            fout.write(render_template(
+                'index.html', 
+                styles=styles,
+                page_body=html))
+        os.chmod(q_dir + "/index.html", 0o777)
+        click.echo("Deploying succeed!")
+    except:
+        click.echo("Deploying description for " + q_data["title"] + " failed!")
+
+
 @click.command('init-database')
-@click.option('--cfg', help='config file', default='./setup.json')
 @with_appcontext
-def initDataBaseCommand(cfg):
-    if not os.path.exists(cfg):
-        click.echo("Error: config file does not exist!")
-    import json
+def initDataBaseCommand():
+    from . import SETUP_CFG as C
     initDataBase()
-    C = json.load(open(cfg, "r"))
     initDescriptions(C)
     click.echo("Initialized the database!!")
 
 
 @click.command('dump-database')
-@click.option('--cfg', help='config file', default='./setup.json')
 @with_appcontext
-def dumpDataBaseCommand(cfg):
-    if not os.path.exists(cfg):
-        click.echo("Error: config file does not exist!")
-    import json
-    C = json.load(open(cfg, "r"))
+def dumpDataBaseCommand():
+    from . import SETUP_CFG as C
     dumpDatabase(C)
     click.echo("Finish dumping database!!")
+
+
+@click.command('dump-description')
+@click.option('--qid', help='question id', default='1')
+@with_appcontext
+def dumpDescriptionCommand(qid):
+    from . import SETUP_CFG as C
+    dumpDescription(C, qid)
+
+
+@click.command('deploy-description')
+@click.option('--qid', help='question id', default='1')
+@with_appcontext
+def deployDescriptionCommand(qid):
+    from . import SETUP_CFG as C
+    deployDescription(C, qid)
+
 
 
 def initApp():
     app.teardown_appcontext(closeDataBase)
     app.cli.add_command(initDataBaseCommand)
     app.cli.add_command(dumpDataBaseCommand)
+    app.cli.add_command(dumpDescriptionCommand)
+    app.cli.add_command(deployDescriptionCommand)

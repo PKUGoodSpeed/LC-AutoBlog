@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Solution for {{ Q['title'] }}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="nickname">Title</label>
+    <input name="nickname" id="nickname" value="" required>
+
+    <label for="language">Language</label>
+    <input name="language" id="language" value="" required>
+
+    <label for="sourcecode">Sourcecode</label>
+    <textarea name="sourcecode" id="sourcecode" rows="20"></textarea>
+
+    <label for="interpretation">Interpretation</label>
+    <textarea name="interpretation" id="interpretation" rows="30"></textarea>
+
+    <input type="submit" value="Save">
+  </form>
+{% endblock %}
