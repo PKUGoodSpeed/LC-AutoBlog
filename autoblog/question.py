@@ -1,3 +1,9 @@
+"""
+Flask Server
+@author: pkugoodspeed
+@date: 06/12/2018
+@copyright: jogchat.com
+"""
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, url_for, session)
 from werkzeug.exceptions import abort

@@ -1,3 +1,9 @@
+"""
+Flask Server
+@author: pkugoodspeed
+@date: 06/12/2018
+@copyright: jogchat.com
+"""
 from . import app
 
 

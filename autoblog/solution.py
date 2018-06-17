@@ -1,3 +1,9 @@
+"""
+Flask Server
+@author: pkugoodspeed
+@date: 06/12/2018
+@copyright: jogchat.com
+"""
 import functools
 from markdown2 import markdown
 from .database import getDataBase
@@ -127,3 +133,31 @@ def editInter():
         'solution/editinter.html', Q=q_data, S=s_data,
         NAVS=navs)
 
+
+@blueprint.route("/editstat", methods=('GET', 'POST'))
+@loginRequired
+def editStat():
+    s_id = request.args.get("s_id", type=str)
+    s_data = getSingleSolution(s_id)
+    q_data = getDataBase().execute(
+        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']))).fetchone()
+    if not q_data:
+        flash("Something is wrong, did not find the question from database!")
+    if request.method == 'POST':
+        database = getDataBase()
+        database.execute(
+            'UPDATE solution SET complexity = ?, runtime = ?, percentage = ?'
+            ' WHERE solution_id = ?', (
+                request.form['complexity'], request.form['runtime'], 
+                request.form['percentage'], s_data['solution_id'])
+        )
+        database.commit()
+        return redirect(url_for('solution.showSolution', s_id=s_id))
+    navs = []
+    navs.append({"link": C["home_web"], "msg": "Prodhome"})
+    navs.append({"link": url_for('question.index'), "msg": "Index"})
+    navs.append({"link": url_for('question.showQuestion', q_title=q_data["title"]), "msg": "Question"})
+    navs.append({"link": "/".join([C["target_web"], q_data["title"], s_data["nickname"] + ".html"]), "msg": "Prodpage"})
+    return render_template(
+        'solution/editstat.html', Q=q_data, S=s_data,
+        NAVS=navs)

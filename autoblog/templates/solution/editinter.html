@@ -27,10 +27,10 @@
   <!-- Solution description block -->
   <form method="post">
     <label for="nickname">Title</label>
-    <input name="nickname" id="nickname" value="" required>
+    <input name="nickname" id="nickname" value="{{ S['nickname'] | safe }}" required>
 
     <label for="interpretation">Interpretation</label>
-    <textarea name="interpretation" id="interpretation" rows="30"></textarea>
+    <textarea name="interpretation" id="interpretation" rows="30">{{ S['interpretation'] | safe }}</textarea>
 
     <input type="submit" value="Save">
   </form>

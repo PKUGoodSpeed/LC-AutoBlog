@@ -1,3 +1,9 @@
+"""
+Flask Server
+@author: pkugoodspeed
+@date: 06/12/2018
+@copyright: jogchat.com
+"""
 import functools
 from .database import getDataBase
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for

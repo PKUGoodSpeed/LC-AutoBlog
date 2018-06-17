@@ -1,3 +1,9 @@
+"""
+Flask Server
+@author: pkugoodspeed
+@date: 06/12/2018
+@copyright: jogchat.com
+"""
 import os
 from flask import render_template
 from . import app

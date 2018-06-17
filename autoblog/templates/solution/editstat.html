@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{{ Q['title'] | safe }}{% endblock %}</h1>
+  <h1>---{{ S['nickname'] | safe }}</h1>
+  <style type="text/css">
+  body{
+      background-color: cyan;
+      font-family: Chalkduster;
+  }
+  pre{
+      background-color: silver;
+      color: brown;
+  }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <h5> {{ S['language'] | safe }} <h5>
+  <form method="post">
+    <div>
+    <label for="complexity">Complexity</label>
+    <input name="complexity" id="complexity" value="{{ S['complexity'] | safe }}">
+    <label for="runtime">Runtime</label>
+    <input name="runtime" id="runtime" value="{{ S['runtime'] | safe }}">
+    <label for="percentage">Percentage</label>
+    <input name="percentage" id="percentage" value="{{ S['percentage'] | safe }}">
+    <label for="author">  -----by {{ g.user['username'] | safe }}</label>
+    </div>
+    <input type="submit" value="Save">
+  </form>
+  <!-- Solution sorce code -->
+  <code>
+<pre>{{ S['sourcecode'] }}</pre>
+  </code>
+  <!-- Solution description block -->
+  <div>
+      <article>
+          {{ S_des | safe }}
+      </article>
+  <div>
+  
+{% endblock %}

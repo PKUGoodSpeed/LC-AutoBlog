@@ -49,6 +49,8 @@ def _setupDesc(C):
         folders = [f for f in os.listdir(local_dir) if f[0] == "["]
         success_cnt = 0
         for f in folders:
+            if f[0] != '[':
+                continue
             pdir = local_dir + "/" + f
             qstn = f[1:].split("]")[0]
             stat = os.system("leetcode show {N} > {F}".format(

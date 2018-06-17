@@ -10,39 +10,17 @@ from .utils import ColorMessage, getHtmlElement
 
 
 def getIndexStyle(font="Chalkduster", theme="silver", boxcolor="gray", hovercolor="orange"):
-    return """body {{
-                background-color: {BODY};
-                font-family: {FONT};
-            }}
-            #Input {{
-              background-position: 10px 12px;
-              background-repeat: no-repeat;
-              width: 100%;
-              font-size: 16px;
-              padding: 12px 20px 12px 40px;
-              border: 1px solid #ddd;
-              margin-bottom: 12px;
-            }}
-            #folders {{
-              list-style-type: none;
-              padding: 0;
-              margin: 0;
-            }}
-            
-            #folders li a {{
-              border: 1px solid #ddd;
-              margin-top: -1px; /* Prevent double borders */
-              background-color: {BOX};
-              padding: 8px;
-              text-decoration: none;
-              font-size: 17px;
-              color: black;
-              display: block
-            }}
-            
-            #folders li a:hover:not(.header) {{
-              background-color: {HOVER};
-            }}
+    return """
+body {{background-color: {BODY};font-family: {FONT};}}
+#Input {{background-position: 10px 12px;background-repeat: no-repeat;width: 100%;font-size: 16px;padding: 12px 20px 12px 40px;border: 1px solid #ddd;margin-bottom: 12px;}}
+#folders {{list-style-type: none;padding: 0;margin: 0;}}
+#folders li a {{border: 1px solid #ddd;margin-top: -1px; background-color: {BOX};padding: 8px;text-decoration: none;font-size: 17px;color: black;display: block}}
+#folders li a:hover:not(.header) {{background-color: {HOVER};}}
+#navi {{list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #334;}}
+#navi li {{float: left;}}
+#navi li a {{display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}}
+#navi li div {{display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}}
+#navi li a:hover {{background-color: #111;}}
     """.format(FONT=font, BODY=theme, BOX=boxcolor, HOVER=hovercolor)
 
 

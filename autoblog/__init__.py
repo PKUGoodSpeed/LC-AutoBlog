@@ -1,3 +1,9 @@
+"""
+Flask Server
+@author: pkugoodspeed
+@date: 06/12/2018
+@copyright: jogchat.com
+"""
 import json
 SETUP_CFG = json.load(open('./configs/setup.json', 'r'))
 

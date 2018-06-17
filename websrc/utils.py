@@ -1,3 +1,9 @@
+"""
+Useful functions
+@author: pkugoodspeed
+@date: 06/12/2018
+@copyright: jogchat.com
+"""
 import sqlite3
 from termcolor import colored
 from sys import stdout
