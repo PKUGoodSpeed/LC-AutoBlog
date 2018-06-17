@@ -25,9 +25,6 @@ src="https://jogchat.com/img/min/jogchat.com-min.jpeg" width="75" height="75">
 <div>
 {{ Q_desc | safe }}
 </div>
-<div>
-<a class="edit" href="{{ url_for('question.editQuestion', q_title= Q['title']) | safe }}">Edit</a>
-</div>
 </article>
 <h2>Solutions</h2>
 {{ Solu_table | safe }}

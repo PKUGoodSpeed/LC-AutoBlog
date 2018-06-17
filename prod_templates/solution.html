@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../.codehighlight/perfect-scrollbar.min.css">
+<link rel="stylesheet" title="Default" href="../.codehighlight/default.css">
+<script src="../.codehighlight/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+<script src="../.codehighlight/jquery-2.1.1.min.js"></script>
+<script src="../.codehighlight/perfect-scrollbar.min.js"></script>
+<script src="../.codehighlight/demo.js"></script>
+<style>
+    {{ styles | safe }}
+</style>
+    </head>
+    <body>
+<a href="https://jogchat.com">
+<img style="position: absolute; top: 0; right: 0; border: 0;" 
+src="https://jogchat.com/img/min/jogchat.com-min.jpeg" width="75" height="75">
+</a>
+<ul id="navi">
+<li><a href="https://jogchat.com">Home</a></li>
+{% for nav in NAVS %}
+ <li><a href="{{ nav['link'] | safe }}">{{ nav['msg'] | safe }}</a></li>
+{% endfor %}
+</ul>
+<h2>{{ S['nickname'] | safe }}</h2>
+<h6>----------------------------------------------by {{ S['author'] | safe }}</h6>
+<div style="display:block;background-color:pink">
+    <p>Language: {{S['language'] | safe}}</p>
+    <p>Complexity: {{ S['complexity'] | safe}}</p>
+    <p>Runtime: {{ S['runtime'] | safe}}</p>
+    <p>Percentage: {{ S['percentage'] | safe}}</p>
+</div>
+<div>
+<div style="display:inline-block; width:600px">
+<article>
+{{ S_desc | safe }}
+</article>
+</div>
+<div style="display:inline-block; width:600px; background-color:white">
+<pre><code class="{{ S['language'] | safe }}">{{ S['sourcecode'] | escape }}</code></pre>
+</div>
+</div>
+    </body>
+<footer style"font-family:Time; background-color:white; display:block">
+<p>@copyright: jogchat.com</p>
+<p>Contact info: <a href="mailto:someone@example.com">pkulizebo@gmail.com</a></p>
+</footer>
+</html>

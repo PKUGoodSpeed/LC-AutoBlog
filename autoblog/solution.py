@@ -37,6 +37,7 @@ def showSolution():
     navs.append({"link": url_for('question.index'), "msg": "Index"})
     navs.append({"link": url_for('question.showQuestion', q_title=q_data["title"]), "msg": "Question"})
     navs.append({"link": "/".join([C["target_web"], q_data["title"], s_data["nickname"] + ".html"]), "msg": "Prodpage"})
+    navs.append({"link": url_for('solution.deploySolution', s_id=s_id), "msg": "Deploy"})
     return render_template(
         'solution/spage.html', Q=q_data, S=s_data,
         S_des=markdown(s_data["interpretation"]),
@@ -160,4 +161,24 @@ def editStat():
     navs.append({"link": "/".join([C["target_web"], q_data["title"], s_data["nickname"] + ".html"]), "msg": "Prodpage"})
     return render_template(
         'solution/editstat.html', Q=q_data, S=s_data,
+        S_des=markdown(s_data["interpretation"]),
         NAVS=navs)
+
+
+@blueprint.route("/sdeploy", methods=('GET', 'POST'))
+@loginRequired
+def deploySolution():
+    from websrc.codeblock import getSolutionPage
+    s_id = request.args.get("s_id", type=str)
+    s_data = getSingleSolution(s_id)
+    q_data = getDataBase().execute(
+        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']))).fetchone()
+    solution_path = "/".join(
+        [C['target_dir'], q_data['title'], s_data['nickname'] + ".html"])
+    solution_addr = "/".join(
+        [C['target_web'], q_data['title'], s_data['nickname'] + ".html"])
+    page_content = getSolutionPage(
+        q_data['title'], s_data, C['templates'] + "/solution.html", C['target_web'])
+    with open(solution_path, "w") as fout:
+        fout.write(page_content)
+    return redirect(solution_addr)

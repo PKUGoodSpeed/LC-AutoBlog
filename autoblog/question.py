@@ -67,6 +67,7 @@ def showQuestion():
     navs.append({"link": C["home_web"], "msg": "Prodhome"})
     navs.append({"link": url_for('question.index'), "msg": "Index"})
     navs.append({"link": C["target_web"] + "/" + q_data["title"], "msg": "Prodpage"})
+    navs.append({"link": url_for('question.deployQuestion', q_title=q_title), "msg": "Deploy"})
     return render_template(
         'question/qpage.html',
         Q=q_data, Q_desc=q_desc, SOLUS=solutions,
@@ -95,5 +96,22 @@ def editQuestion():
     return render_template(
         'question/qedit.html', Q=q_data, S=solutions,
         NAVS=navs)
+
+
+ 
+@blueprint.route("/qdeploy", methods=('GET', 'POST'))
+@loginRequired
+def deployQuestion():
+    from websrc.codeblock import getQuestionPage
+    q_title = request.args.get("q_title", type=str)
+    q_data = getQData(q_title)
+    solutions = getSolutions(q_data['id'])
+    question_dir = C['target_dir'] + "/" + q_title
+    question_addr = C['target_web'] + "/" + q_title
+    page_content = getQuestionPage(
+        q_title, q_data["description"], solutions, C["templates"] + "/question.html", C["target_web"])
+    with open(question_dir + "/index.html", "w") as fout:
+        fout.write(page_content)
+    return redirect(question_addr)
      
 
