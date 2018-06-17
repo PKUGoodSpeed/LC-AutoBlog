@@ -77,16 +77,14 @@ def initDescriptions(C):
             click.echo("Warning: Initialized description for " + f + " failed!")
 
         try:
-            styles = """
-body {background-color: silver;font-family: Chalkduster;}
+            styles = """body {background-color: silver;font-family: Chalkduster;}
 code {background-color: white;color: darkblue;white-space: pre;}
 h2 {color: darkblue;}
-#navi {{list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #334;}}
-#navi li {{float: left;}}
-#navi li a {{display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}}
-#navi li div {{display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}}
-#navi li a:hover {{background-color: #111;}}
-            """
+#navi {list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #334;}
+#navi li {float: left;}
+#navi li a {display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}
+#navi li div {display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}
+#navi li a:hover {background-color: #111;}"""
             with open(target_dir + "/" + f + "/index.html", "w") as fout:
                 html = getHtmlElement(tag="h2", msg=f, selfclose=False)
                 html += markdown(md)
@@ -163,16 +161,14 @@ def deployDescription(C, q_id):
     if not os.path.exists(q_dir):
         os.makedirs(q_dir)
     try:
-        styles = """
-body {background-color: silver;font-family: Chalkduster;}
+        styles = """body {background-color: silver;font-family: Chalkduster;}
 code {background-color: white;color: darkblue;white-space: pre;}
 h2 {color: darkblue;}
-#navi {{list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #334;}}
-#navi li {{float: left;}}
-#navi li a {{display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}}
-#navi li div {{display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}}
-#navi li a:hover {{background-color: #111;}}
-        """
+#navi {list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #334;}
+#navi li {float: left;}
+#navi li a {display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}
+#navi li div {display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}
+#navi li a:hover {background-color: #111;}"""
         with open(q_dir + "/index.html", "w") as fout:
             html = getHtmlElement(tag="h2", msg=q_data["title"], selfclose=False)
             html += markdown(q_data["description"])
