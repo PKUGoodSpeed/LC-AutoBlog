@@ -2,7 +2,8 @@
     "title_file": "./leetcode_titles.txt",
     "local_dir": "./input",
     "target_dir": "/home/pkugoodspeed/tmp",
+    "home_web": "https://jogchat.com",
     "target_web": "https://jogchat.com/leetcode_blogs",
-    "templates": "./autoblog/templates",
+    "templates": "./prod_templates",
     "database": "./instance/test.database"
 }

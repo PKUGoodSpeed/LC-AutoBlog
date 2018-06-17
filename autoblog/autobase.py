@@ -1,4 +1,5 @@
 import os
+from flask import render_template
 from . import app
 from .config import TestConfig, ProdConfig
 from .database import initApp
@@ -21,3 +22,4 @@ app.register_blueprint(solution.blueprint)
 @app.route('/config')
 def getConfig():
     return str(dict(app.config))
+

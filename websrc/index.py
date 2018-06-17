@@ -112,7 +112,7 @@ def getIndexBody(path, addr):
     return body
 
 
-def makeSearchIndex(path, addr, template_file="./templates/base.html"):
+def makeSearchIndex(path, addr, template_file="./templates/index.html"):
     """ Creating a index.html page for problem directory """
     ColorMessage("Generating Index Page for " + addr + "...", "cyan")
     f = open(template_file, 'r')
@@ -141,3 +141,4 @@ def makeSearchIndex(path, addr, template_file="./templates/base.html"):
         ColorMessage("Changing permission level succeed!", "cyan")
     except:
         ColorMessage("Changing permission level failed!", "red")
+    ColorMessage("Setup Index Page Finished.", "magenta")

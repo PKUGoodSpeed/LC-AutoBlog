@@ -24,6 +24,9 @@ CREATE TABLE solution(
     nickname TEXT NOT NULL,
     interpretation TEXT NULL,
     sourcecode TEXT NOT NULL,
+    complexity TEXT NOT NULL,
+    runtime TEXT NOT NULL,
+    percentage TEXT NOT NULL,
     FOREIGN KEY (author_id) REFERENCES author (id),
     FOREIGN KEY (question_id) REFERENCES question (id)
 );

@@ -6,6 +6,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from .auth import loginRequired
 from .database import getDataBase
 from .question import getQData
+from . import SETUP_CFG as C
 
 blueprint = Blueprint('solution', __name__, url_prefix='/solution')
 
@@ -25,9 +26,15 @@ def showSolution():
         "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']))).fetchone()
     if not q_data:
         flash("Something is wrong, did not find the question from database!")
+    navs = []
+    navs.append({"link": C["home_web"], "msg": "Prodhome"})
+    navs.append({"link": url_for('question.index'), "msg": "Index"})
+    navs.append({"link": url_for('question.showQuestion', q_title=q_data["title"]), "msg": "Question"})
+    navs.append({"link": "/".join([C["target_web"], q_data["title"], s_data["nickname"] + ".html"]), "msg": "Prodpage"})
     return render_template(
         'solution/spage.html', Q=q_data, S=s_data,
-        S_des=markdown(s_data["interpretation"]))
+        S_des=markdown(s_data["interpretation"]),
+        NAVS=navs)
 
 
 @blueprint.route("/screate", methods=('GET', 'POST'))
@@ -43,20 +50,27 @@ def createSolution():
         ).fetchone()
         if s_data:
             flash("Solution " + request.form['nickname'] + "for the question already exists!")
-            return render_template(
-                'solution/screate.html', Q=q_data)
         else:
             database.execute(
-                'INSERT INTO solution (author_id, question_id, author, language, nickname, interpretation, sourcecode)'
-                ' VALUES (?, ?, ?, ?, ?, ?, ?)', (
+                'INSERT INTO solution (author_id, question_id, author, language, nickname, interpretation, sourcecode, complexity, runtime, percentage)'
+                ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', (
                     g.user['id'], q_data['id'], g.user['username'], request.form['language'],
-                    request.form['nickname'], request.form['interpretation'], request.form['sourcecode']
+                    request.form['nickname'], request.form['interpretation'], request.form['sourcecode'],
+                    request.form['complexity'], request.form['runtime'], request.form['percentage']
                 )
             )
             database.commit()
-        return redirect(url_for('question.showQuestion', q_title=q_title))
+            s_data = database.execute(
+                'SELECT * FROM solution WHERE question_id = ? AND nickname = ?',
+                (q_data["id"], request.form['nickname'])
+            ).fetchone()
+            return redirect(url_for('solution.showSolution', s_id=s_data['solution_id']))
+    navs = []
+    navs.append({"link": C["home_web"], "msg": "Prodhome"})
+    navs.append({"link": url_for('question.index'), "msg": "Index"})
+    navs.append({"link": url_for('question.showQuestion', q_title=q_data["title"]), "msg": "Question"})
     return render_template(
-        'solution/screate.html', Q=q_data)
+        'solution/screate.html', Q=q_data, NAVS=navs)
 
 
 @blueprint.route("/editcode", methods=('GET', 'POST'))
@@ -76,9 +90,15 @@ def editCode():
         )
         database.commit()
         return redirect(url_for('solution.showSolution', s_id=s_id))
+    navs = []
+    navs.append({"link": C["home_web"], "msg": "Prodhome"})
+    navs.append({"link": url_for('question.index'), "msg": "Index"})
+    navs.append({"link": url_for('question.showQuestion', q_title=q_data["title"]), "msg": "Question"})
+    navs.append({"link": "/".join([C["target_web"], q_data["title"], s_data["nickname"] + ".html"]), "msg": "Prodpage"})
     return render_template(
         'solution/editcode.html', Q=q_data, S=s_data,
-        S_des=markdown(s_data["interpretation"]))
+        S_des=markdown(s_data["interpretation"]),
+        NAVS=navs)
 
 
 @blueprint.route("/editinter", methods=('GET', 'POST'))
@@ -98,6 +118,12 @@ def editInter():
         )
         database.commit()
         return redirect(url_for('solution.showSolution', s_id=s_id))
+    navs = []
+    navs.append({"link": C["home_web"], "msg": "Prodhome"})
+    navs.append({"link": url_for('question.index'), "msg": "Index"})
+    navs.append({"link": url_for('question.showQuestion', q_title=q_data["title"]), "msg": "Question"})
+    navs.append({"link": "/".join([C["target_web"], q_data["title"], s_data["nickname"] + ".html"]), "msg": "Prodpage"})
     return render_template(
-        'solution/editinter.html', Q=q_data, S=s_data)
+        'solution/editinter.html', Q=q_data, S=s_data,
+        NAVS=navs)
 

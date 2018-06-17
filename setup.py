@@ -38,7 +38,6 @@ def _setupDirs(C):
                 ColorMessage(msg, "red")
     ColorMessage("Setup Leetcode Web Directory Finished. Please check manually as well!", "magenta")
     makeSearchIndex(target_dir, target_web, templates + "/index.html")
-    ColorMessage("Setup Index Page Finished.", "magenta")
 
 
 def _setupDesc(C):

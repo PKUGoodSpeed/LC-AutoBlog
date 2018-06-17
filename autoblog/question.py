@@ -5,6 +5,7 @@ from .auth import loginRequired
 from .database import getDataBase
 import websrc.index as windex
 from websrc.utils import getHtmlElement
+from . import SETUP_CFG as C
 
 blueprint = Blueprint('question', __name__)
 
@@ -25,11 +26,15 @@ def index():
     page_body = getHtmlElement(tag='h4', msg="editor mode", selfclose=False, style="\"color:magenta\"")
     page_body += windex.getIndexBodyFromList(folders, addr)
     page_scripts = windex.getSearchScripts()
+    navs = []
+    navs.append({"link": C["home_web"], "msg": "Prodhome"})
+    navs.append({"link": C["target_web"], "msg": "Prodpage"})
     return render_template(
         'index.html',
         styles=styles,
         page_body=page_body,
-        page_scripts=page_scripts)
+        page_scripts=page_scripts,
+        NAVS=navs)
 
 
 def getQData(q_title):
@@ -52,9 +57,14 @@ def showQuestion():
     q_data = getQData(q_title)
     q_desc = getQDescription(q_title)
     solutions = getSolutions(q_data["id"])
+    navs = []
+    navs.append({"link": C["home_web"], "msg": "Prodhome"})
+    navs.append({"link": url_for('question.index'), "msg": "Index"})
+    navs.append({"link": C["target_web"] + "/" + q_data["title"], "msg": "Prodpage"})
     return render_template(
         'question/qpage.html',
-        Q=q_data, Q_desc=q_desc, SOLUS=solutions)
+        Q=q_data, Q_desc=q_desc, SOLUS=solutions,
+        NAVS=navs)
  
  
 @blueprint.route("/qedit", methods=('GET', 'POST'))
@@ -72,8 +82,12 @@ def editQuestion():
             (q_desc, q_title))
         database.commit()
         return redirect(url_for('question.showQuestion', q_title=q_title))
-
+    navs = []
+    navs.append({"link": C["home_web"], "msg": "Prodhome"})
+    navs.append({"link": url_for('question.index'), "msg": "Index"})
+    navs.append({"link": C["target_web"] + "/" + q_data["title"], "msg": "Prodpage"})
     return render_template(
-        'question/qedit.html', Q=q_data, S=solutions)
+        'question/qedit.html', Q=q_data, S=solutions,
+        NAVS=navs)
      
 

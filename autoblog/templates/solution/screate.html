@@ -6,16 +6,26 @@
 
 {% block content %}
   <form method="post">
-    <label for="nickname">Title</label>
+    <label for="nickname">Title (nickname for the solution)</label>
     <input name="nickname" id="nickname" value="" required>
 
-    <label for="language">Language</label>
+    <label for="language">Language (c++, python, go, etc.)</label>
     <input name="language" id="language" value="" required>
-
-    <label for="sourcecode">Sourcecode</label>
+    
+    <div>
+    <label for="complexity">Complexity</label>
+    <input name="complexity" id="complexity" value="">
+    <label for="runtime">Runtime</label>
+    <input name="runtime" id="runtime" value="">
+    <label for="percentage">Percentage</label>
+    <input name="percentage" id="percentage" value="">
+    <label for="author">  -----by {{ g.user['username'] | safe }}</label>
+    </div>
+    <br>
+    <label for="sourcecode">Sourcecode (Copy you code here)</label>
     <textarea name="sourcecode" id="sourcecode" rows="20"></textarea>
-
-    <label for="interpretation">Interpretation</label>
+    <br>
+    <label for="interpretation">Interpretation (Explanation for your code, using md format)</label>
     <textarea name="interpretation" id="interpretation" rows="30"></textarea>
 
     <input type="submit" value="Save">

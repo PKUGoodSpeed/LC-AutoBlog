@@ -14,6 +14,11 @@
     {% endif %}
   </ul>
 </nav>
+<ul id="navi">
+{% for nav in NAVS %}
+ <li><a href="{{ nav['link'] | safe }}">{{ nav['msg'] | safe }}</a></li>
+{% endfor %}
+</ul>
 <section class="content">
   <header>
     {% block header %}{% endblock %}

@@ -1,10 +1,12 @@
 import os
 import sqlite3
 from markdown2 import markdown
+from jinja2 import Template
 from . import app
 import click
 from flask import g, render_template
 from flask.cli import with_appcontext
+from . import SETUP_CFG as C
 
 
 def getDataBase():
@@ -86,8 +88,11 @@ def initDescriptions(C):
             with open(target_dir + "/" + f + "/index.html", "w") as fout:
                 html = getHtmlElement(tag="h2", msg=f, selfclose=False)
                 html += markdown(md)
-                fout.write(render_template(
-                    'index.html', 
+                template_file = C['templates'] + "/index.html"
+                ftemp = open(template_file, 'r')
+                template = Template(ftemp.read())
+                ftemp.close()
+                fout.write(template.render(
                     styles=styles,
                     page_body=html))
             os.chmod(target_dir + "/" + f + "/index.html", 0o777)
@@ -173,8 +178,11 @@ def deployDescription(C, q_id):
         with open(q_dir + "/index.html", "w") as fout:
             html = getHtmlElement(tag="h2", msg=q_data["title"], selfclose=False)
             html += markdown(q_data["description"])
-            fout.write(render_template(
-                'index.html', 
+            template_file = C['templates'] + "/index.html"
+            ftemp = open(template_file, 'r')
+            template = Template(ftemp.read())
+            ftemp.close()
+            fout.write(template.render(
                 styles=styles,
                 page_body=html))
         os.chmod(q_dir + "/index.html", 0o777)
@@ -186,7 +194,6 @@ def deployDescription(C, q_id):
 @click.command('init-database')
 @with_appcontext
 def initDataBaseCommand():
-    from . import SETUP_CFG as C
     initDataBase()
     initDescriptions(C)
     click.echo("Initialized the database!!")
@@ -195,7 +202,6 @@ def initDataBaseCommand():
 @click.command('dump-database')
 @with_appcontext
 def dumpDataBaseCommand():
-    from . import SETUP_CFG as C
     dumpDatabase(C)
     click.echo("Finish dumping database!!")
 
@@ -204,7 +210,6 @@ def dumpDataBaseCommand():
 @click.option('--qid', help='question id', default='1')
 @with_appcontext
 def dumpDescriptionCommand(qid):
-    from . import SETUP_CFG as C
     dumpDescription(C, qid)
 
 
@@ -212,7 +217,6 @@ def dumpDescriptionCommand(qid):
 @click.option('--qid', help='question id', default='1')
 @with_appcontext
 def deployDescriptionCommand(qid):
-    from . import SETUP_CFG as C
     deployDescription(C, qid)
 
 
