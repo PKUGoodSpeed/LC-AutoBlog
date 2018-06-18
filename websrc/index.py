@@ -9,9 +9,10 @@ from jinja2 import Template
 from .utils import ColorMessage, getHtmlElement
 
 
-def getIndexStyle(font="Chalkduster", theme="silver", boxcolor="gray", hovercolor="orange"):
+def getIndexStyle(font="Comic Sans MS", theme="silver", boxcolor="gray", hovercolor="orange", fontweight='560'):
     return """
-body {{background-color: {BODY};font-family: {FONT};}}
+body {{background-color: {BODY};font-family: {FONT}; font-weight: {FONTWEIGHT}}}
+code {{background-color: white;color: darkblue;white-space: pre;}}
 #Input {{background-position: 10px 12px;background-repeat: no-repeat;width: 100%;font-size: 16px;padding: 12px 20px 12px 40px;border: 1px solid #ddd;margin-bottom: 12px;}}
 #folders {{list-style-type: none;padding: 0;margin: 0;}}
 #folders li a {{border: 1px solid #ddd;margin-top: -1px; background-color: {BOX};padding: 8px;text-decoration: none;font-size: 17px;color: black;display: block}}
@@ -21,7 +22,7 @@ body {{background-color: {BODY};font-family: {FONT};}}
 #navi li a {{display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}}
 #navi li div {{display: block; color: white; text-align: center; padding: 14px 16px; text-decoration: none;}}
 #navi li a:hover {{background-color: #111;}}
-    """.format(FONT=font, BODY=theme, BOX=boxcolor, HOVER=hovercolor)
+    """.format(FONT=font, BODY=theme, BOX=boxcolor, HOVER=hovercolor, FONTWEIGHT=str(fontweight))
 
 
 def getSearchScripts():

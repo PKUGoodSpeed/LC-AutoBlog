@@ -59,9 +59,9 @@ def createSolution():
             flash("Solution " + request.form['nickname'] + "for the question already exists!")
         else:
             database.execute(
-                'INSERT INTO solution (author_id, question_id, author, language, nickname, interpretation, sourcecode, complexity, runtime, percentage)'
-                ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', (
-                    g.user['id'], q_data['id'], g.user['username'], request.form['language'],
+                'INSERT INTO solution (question_id, author, language, nickname, interpretation, sourcecode, complexity, runtime, percentage)'
+                ' VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', (
+                    q_data['id'], g.user['username'], request.form['language'],
                     request.form['nickname'], request.form['interpretation'], request.form['sourcecode'],
                     request.form['complexity'], request.form['runtime'], request.form['percentage']
                 )

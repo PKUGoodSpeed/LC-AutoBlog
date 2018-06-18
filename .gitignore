@@ -11,7 +11,7 @@ summary/
 embs/
 submissions/
 instance/
-
+cached/
 # PyCharm
 .idea/
 

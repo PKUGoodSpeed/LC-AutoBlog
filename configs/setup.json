@@ -5,5 +5,6 @@
     "home_web": "https://jogchat.com",
     "target_web": "https://jogchat.com/leetcode_blogs",
     "templates": "./prod_templates",
-    "database": "./instance/test.database"
+    "database": "./instance/test.database",
+    "db_cache": "./cached"
 }

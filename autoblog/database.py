@@ -8,6 +8,7 @@ import os
 import sqlite3
 from markdown2 import markdown
 from jinja2 import Template
+from datetime import datetime
 from . import app
 import click
 from flask import g, render_template
@@ -41,11 +42,12 @@ def initDataBase():
         database.executescript(f.read().decode('utf8'))
 
 
-def initDescriptions(C):
+def initDescriptions():
     from websrc.utils import getHtmlElement
     q_db = getDataBase()
     local_dir = C["local_dir"]
     target_dir = C["target_dir"]
+    target_addr = C["target_web"]
     if not os.path.exists(local_dir):
         click.echo("local workspace is not setup!")
         return
@@ -77,7 +79,7 @@ def initDescriptions(C):
             click.echo("Warning: Initialized description for " + f + " failed!")
 
         try:
-            styles = """body {background-color: silver;font-family: Chalkduster;}
+            styles = """body {background-color: white;font-family: Comic Sans MS;}
 code {background-color: white;color: darkblue;white-space: pre;}
 h2 {color: darkblue;}
 #navi {list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #334;}
@@ -92,17 +94,17 @@ h2 {color: darkblue;}
                 ftemp = open(template_file, 'r')
                 template = Template(ftemp.read())
                 ftemp.close()
+                navs = [{'link': target_addr, "msg": "Index"}]
                 fout.write(template.render(
-                    styles=styles,
-                    page_body=html))
+                    styles=styles, page_body=html, NAVS=navs))
             os.chmod(target_dir + "/" + f + "/index.html", 0o777)
             click.echo("Deployed description of " + f + " into webpage!")
         except:
-            click.echo("Warning: Deploying description for " + f + " failed!")
+            click.echo("WARNGING: Deploying description for " + f + " failed!")
 
 
 
-def dumpDatabase(C):
+def dumpDatabase():
     q_db = getDataBase()
     local_dir = C["local_dir"]
     title_file = C["title_file"]
@@ -124,10 +126,10 @@ def dumpDatabase(C):
                 with open(q_dir + "/README.md", "w") as fout:
                     fout.write(q_data["description"])
             except:
-                click.echo("Dumping " + q_title + " failed!. Please do it manually!")
+                click.echo("WARNGING: Dumping " + q_title + " failed!. Please do it manually!")
 
 
-def dumpDescription(C, q_id):
+def dumpDescription(q_id):
     q_db = getDataBase()
     local_dir = C["local_dir"]
     click.echo("Dumping description for " + str(q_id) + " to " + local_dir + " ...")
@@ -144,13 +146,14 @@ def dumpDescription(C, q_id):
             fout.write(q_data["description"])
         click.echo("Dumping succeed!")
     except:
-        click.echo("Dumping " + q_data["title"] + " failed!. Please do it manually!")
+        click.echo("WARNGING: Dumping " + q_data["title"] + " failed!. Please do it manually!")
 
 
-def deployDescription(C, q_id):
+def deployDescription(q_id):
     from websrc.utils import getHtmlElement
     q_db = getDataBase()
     target_dir = C["target_dir"]
+    target_addr = C["target_web"]
     click.echo("Deploying description for " + str(q_id) + " to " + target_dir + " ...")
     q_data = q_db.execute(
         "SELECT * FROM question WHERE id = ?", (q_id, )).fetchone()
@@ -161,7 +164,7 @@ def deployDescription(C, q_id):
     if not os.path.exists(q_dir):
         os.makedirs(q_dir)
     try:
-        styles = """body {background-color: silver;font-family: Chalkduster;}
+        styles = """body {background-color: white;font-family: Comic Sans MS;}
 code {background-color: white;color: darkblue;white-space: pre;}
 h2 {color: darkblue;}
 #navi {list-style-type: none; margin: 0; padding: 0; overflow: hidden; background-color: #334;}
@@ -176,48 +179,171 @@ h2 {color: darkblue;}
             ftemp = open(template_file, 'r')
             template = Template(ftemp.read())
             ftemp.close()
+            navs = [{'link': target_addr, "msg": "Index"}]
             fout.write(template.render(
-                styles=styles,
-                page_body=html))
+                styles=styles, page_body=html, NAVS=navs))
         os.chmod(q_dir + "/index.html", 0o777)
         click.echo("Deploying succeed!")
     except:
-        click.echo("Deploying description for " + q_data["title"] + " failed!")
+        click.echo("WARNGING: Deploying description for " + q_data["title"] + " failed!")
 
 
-@click.command('init-database')
+def _getSolutionMsg(s_data, q_data):
+    msg = "=" * 50 + "\n"
+    msg += "Solution id: " + str(s_data['solution_id']) + "\n"
+    msg += "Question:    " + str(q_data['title']) + "\n"
+    msg += "Nickname:    " + str(s_data['nickname']) + "\n"
+    msg += "Author:      " + str(s_data["author"]) + "\n"
+    msg += "Language:    " + str(s_data["language"]) + "\n"
+    msg += "Complexity:  " + str(s_data["complexity"]) + "\n"
+    msg += "Runtime:     " + str(s_data["runtime"]) + "\n"
+    msg += "Percentage:  " + str(s_data["percentage"]) + "\n"
+    msg += "-" * 50 + "\n"
+    msg += "Go to {H}/{Q}/{S}.html to view solution details!\n".format(
+        H=C['target_web'], Q=q_data['title'], S=s_data['nickname'])
+    msg += "=" * 50 + "\n"
+    return msg
+
+
+def _getQuestionMsg(q_data):
+    msg = "=" * 50 + "\n"
+    msg += "Question:    " + str(q_data['title']) + "\n"
+    msg += "-" * 50 + "\n"
+    msg += "Description: \n"
+    msg += str(q_data['description']) + "\n"
+    msg += "-" * 50 + "\n"
+    msg += "Go to {H}/{Q} to view question details\n".format(
+        H=C['target_web'], Q=q_data['title'])
+    msg += "=" * 50 + "\n"
+    return msg
+
+
+def checkQuestion(question_id):
+    q_data = getDataBase().execute(
+        "SELECT * FROM question WHERE id = ?", (str(question_id))).fetchone()
+    if not q_data:
+        click.echo("ERROR: Something is wrong, question#{ID} does not exists!".format(str(question_id)))
+        return
+    click.echo(_getQuestionMsg(q_data))
+
+
+def checkSolution(solution_id):
+    database = getDataBase()
+    s_data = database.execute(
+        'SELECT * FROM solution WHERE solution_id = ?', (str(solution_id))).fetchone()
+    if not s_data:
+        click.echo("ERROR: Solution with solution_id=" + str(solution_id) + " does not exist!")
+        return
+    q_data = database.execute(
+        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']))).fetchone()
+    if not q_data:
+        click.echo("ERROR: Something is wrong, no question corresponds to this solution_id!!")
+        return
+    click.echo(_getSolutionMsg(s_data, q_data))
+
+
+def deleteSolution(solution_id):
+    database = getDataBase()
+    s_data = database.execute(
+        'SELECT * FROM solution WHERE solution_id = ?', (str(solution_id))).fetchone()
+    if not s_data:
+        click.echo("ERROR: Solution with solution_id=" + str(solution_id) + " does not exist!")
+        return
+    q_data = database.execute(
+        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']))).fetchone()
+    database.execute(
+        'DELETE FROM solution WHERE solution_id = ?', (str(solution_id),))
+    database.commit()
+    solution_file = "/".join([C['target_dir'], q_data['title'], s_data['nickname'] + ".html"])
+    os.remove(solution_file)
+    msg = "Successfully delete solution id={ID}, nickname={NM}, author={AU}\n".format(
+        ID=str(solution_id), NM=s_data['nickname'], AU=s_data['author'])
+    click.echo("Succe")
+
+
+@click.command('init-db')
 @with_appcontext
 def initDataBaseCommand():
+    from shutil import copyfile
+    # Make replica
+    cache = C['db_cache']
+    if not os.path.exists(cache):
+        os.makedirs(cache)
+    filename = cache + "/saved_"
+    filename += str(datetime.now()).replace(" ", "_")
+    filename += ".database"
+    copyfile(app.config["DATABASE"], filename)
+    click.echo("Old database is saved in " + filename)
+
     initDataBase()
-    initDescriptions(C)
+    initDescriptions()
     click.echo("Initialized the database!!")
 
 
-@click.command('dump-database')
+@click.command('save-db')
+@with_appcontext
+def saveDataBaseCommand():
+    from shutil import copyfile
+    # Make replica
+    cache = C['db_cache']
+    if not os.path.exists(cache):
+        os.makedirs(cache)
+    filename = cache + "/saved_"
+    filename += str(datetime.now()).replace(" ", "_")
+    filename += ".database"
+    copyfile(app.config["DATABASE"], filename)
+    click.echo("Database is saved in " + filename)
+
+
+@click.command('dump-db')
 @with_appcontext
 def dumpDataBaseCommand():
-    dumpDatabase(C)
+    dumpDatabase()
     click.echo("Finish dumping database!!")
 
 
-@click.command('dump-description')
+@click.command('dumpq')
 @click.option('--qid', help='question id', default='1')
 @with_appcontext
 def dumpDescriptionCommand(qid):
-    dumpDescription(C, qid)
+    dumpDescription(qid)
 
 
-@click.command('deploy-description')
+@click.command('deplq')
 @click.option('--qid', help='question id', default='1')
 @with_appcontext
 def deployDescriptionCommand(qid):
-    deployDescription(C, qid)
+    deployDescription(qid)
 
+
+@click.command('chq')
+@click.option('--qid', help='question id', default='1')
+@with_appcontext
+def checkQuestionCommand(qid):
+    checkQuestion(qid)
+
+
+@click.command('chs')
+@click.option('--sid', help='solution id', default='1')
+@with_appcontext
+def checkSolutionCommand(sid):
+    checkSolution(sid)
+
+
+@click.command('dels')
+@click.option('--sid', help='solution id', default='1')
+@with_appcontext
+def deleteSolutionCommand(sid):
+    deleteSolution(sid)
 
 
 def initApp():
     app.teardown_appcontext(closeDataBase)
     app.cli.add_command(initDataBaseCommand)
+    app.cli.add_command(saveDataBaseCommand)
     app.cli.add_command(dumpDataBaseCommand)
     app.cli.add_command(dumpDescriptionCommand)
     app.cli.add_command(deployDescriptionCommand)
+    app.cli.add_command(checkQuestionCommand)
+    app.cli.add_command(checkSolutionCommand)
+    app.cli.add_command(deleteSolutionCommand)

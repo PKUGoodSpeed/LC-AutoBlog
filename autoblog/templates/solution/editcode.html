@@ -6,7 +6,7 @@
   <style type="text/css">
   body{
       background-color: cyan;
-      font-family: Chalkduster;
+      font-family: Comic Sans MS;
   }
   pre{
       background-color: silver;
@@ -17,6 +17,11 @@
 
 {% block content %}
   <h5> {{ S['language'] | safe }} <h5>
+  <div>
+    <span style="background-color: white">Complexity: {{ S['complexity'] | safe }} </span>
+    <span style="background-color: yellow">Runtime: {{ S['runtime'] | safe }} </span>
+    <span style="background-color: white">Percentage: {{ S['percentage'] | safe }} </span>
+  <div>
   <!-- Solution sorce code -->
   <form method="post">
     <label for="language">Language</label>

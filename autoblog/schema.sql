@@ -17,7 +17,6 @@ CREATE TABLE question(
 
 CREATE TABLE solution(
     solution_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    author_id INTEGER NOT NULL,
     question_id INTEGER NOT NULL,
     author TEXT NOT NULL,
     language TEXT NOT NULL,
@@ -27,6 +26,5 @@ CREATE TABLE solution(
     complexity TEXT NOT NULL,
     runtime TEXT NOT NULL,
     percentage TEXT NOT NULL,
-    FOREIGN KEY (author_id) REFERENCES author (id),
     FOREIGN KEY (question_id) REFERENCES question (id)
 );

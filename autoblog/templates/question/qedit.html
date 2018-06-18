@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 
 {% block header %}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='preview/wmd.css') }}"/>
+<script src="{{ url_for('static', filename='preview/wmd.js') }}"></script>
+<script src="{{ url_for('static', filename='preview/showdown.js') }}"></script>
+<style type="text/css" media="screen">
+	textarea {width:100%;margin:0;}
+	textarea, #notes-preview {border:1px solid gray;}
+	#notes-preview {overflow-x:hidden;overflow-y:scroll;}
+</style>
   <h1> Editting {{ Q['title'] | safe }}</h1>
   <style type="text/css">
     body {
@@ -12,10 +21,26 @@
 {% block content %}
 <article class="post">
   <form method="post">
-    <label for="q_desc" style="font-family:Chalkduster">Question Description (<i>Use markdown format</i>)</label>
-    <textarea name="q_desc" id="q_desc" rows="40"> {{ Q['description'] | safe }} </textarea>
+    <div>
+      <label for="q_desc">Question Description (<i>Use markdown format</i>)</label>
+			<textarea name="q_desc" id="notes" rows="25">{{ Q['description'] | safe }}</textarea>
+
+			<label for="q_desc">Preview</label>
+			<div id="notes-preview"></div>
+		</div>
     <input type="submit" value="Save">
   </form>
   <hr>
 </article>
+<script type="text/javascript">
+	new WMDEditor({
+		input: "notes",
+		button_bar: "notes-button-bar",
+		preview: "notes-preview",
+		output: "copy_html",
+		buttons: "bold italic link  ol ul  heading",
+		modifierKeys: false,
+		autoFormatting: false
+	});
+</script>
 {% endblock %}

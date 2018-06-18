@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 
 {% block header %}
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='preview/wmd.css') }}"/>
+<script src="{{ url_for('static', filename='preview/wmd.js') }}"></script>
+<script src="{{ url_for('static', filename='preview/showdown.js') }}"></script>
+<style type="text/css" media="screen">
+	textarea {width:100%;margin:0;}
+	textarea, #notes-preview {border:1px solid gray;}
+	#notes-preview {overflow-x:hidden;overflow-y:scroll;}
+</style>
   <h1>{% block title %}Solution for {{ Q['title'] }}{% endblock %}</h1>
 {% endblock %}
 
@@ -25,9 +34,25 @@
     <label for="sourcecode">Sourcecode (Copy you code here)</label>
     <textarea name="sourcecode" id="sourcecode" rows="20"></textarea>
     <br>
-    <label for="interpretation">Interpretation (Explanation for your code, using md format)</label>
-    <textarea name="interpretation" id="interpretation" rows="30"></textarea>
+    <div>
+      <label for="interpretation">Interpretation (<i>Use markdown format</i>)</label>
+			<textarea name="interpretation" id="notes" rows="25"></textarea>
+
+			<label for="interpretation">Preview</label>
+			<div id="notes-preview"></div>
+		</div>
 
     <input type="submit" value="Save">
   </form>
+<script type="text/javascript">
+	new WMDEditor({
+		input: "notes",
+		button_bar: "notes-button-bar",
+		preview: "notes-preview",
+		output: "copy_html",
+		buttons: "bold italic link  ol ul  heading",
+		modifierKeys: false,
+		autoFormatting: false
+	});
+</script>
 {% endblock %}

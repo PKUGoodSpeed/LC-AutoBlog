@@ -1,6 +1,6 @@
-html { font-family: Chalkduster; background: #eee; padding: 1rem; }
-body { font-family: Chalkduster; max-width: 1200px; margin: 0 auto; background: white; background-color: cyan}
-h1 { font-family: Chalkduster; color: #377ba8; margin: 1rem 0; }
+html { font-family: Comic Sans MS; background: #eee; padding: 1rem; }
+body { font-family: Comic Sans MS; max-width: 1200px; margin: 0 auto; background: white; background-color: cyan}
+h1 { font-family: Comic Sans MS; color: #377ba8; margin: 1rem 0; }
 a { color: magenta; }
 hr { border: none; border-top: 1px solid lightgray; }
 nav { background: lightgray; display: flex; align-items: center; padding: 0 0.5rem; }

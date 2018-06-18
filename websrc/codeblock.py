@@ -35,7 +35,7 @@ def getQuestionPage(title, description, solutions, template_file, target_addr):
     solu_html_table = df.to_html(index=None, escape=False, classes="sortable")
     q_desc = markdown(description)
     return template.render(
-        styles = getIndexStyle(font="Chalkduster", theme="silver", boxcolor="gray", hovercolor="orange"),
+        styles = getIndexStyle(font="Comic Sans MS", theme="white", boxcolor="gray", hovercolor="orange", fontweight="500"),
         NAVS=navs, Q_title=title, Q_desc=q_desc, Solu_table=solu_html_table)
 
 
@@ -50,5 +50,5 @@ def getSolutionPage(title, solution, template_file, target_addr):
     navs.append({'link': question_addr, "msg": "Question"})
     description = markdown(solution['interpretation'])
     return template.render(
-        styles = getIndexStyle(font="Chalkduster", theme="silver", boxcolor="gray", hovercolor="orange"),
+        styles = getIndexStyle(font="Comic Sans MS", theme="white", boxcolor="gray", hovercolor="orange", fontweight="500"),
         NAVS=navs, Q_title=title, S=solution, S_desc=description)

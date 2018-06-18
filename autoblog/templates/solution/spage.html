@@ -2,11 +2,11 @@
 
 {% block header %}
   <h1>{% block title %}{{ Q['title'] | safe }}{% endblock %}</h1>
-  <h1>---{{ S['nickname'] | safe }}</h1>
+  <h1>---{{ S['nickname'] }} (ID={{S['solution_id']}})</h1>
   <style type="text/css">
   body{
       background-color: cyan;
-      font-family: Chalkduster;
+      font-family: Comic Sans MS;
   }
   pre{
       background-color: silver;
@@ -22,14 +22,14 @@
     <span style="background-color: yellow">Runtime: {{ S['runtime'] | safe }} </span>
     <span style="background-color: white">Percentage: {{ S['percentage'] | safe }} </span>
   <div>
-  {% if g.user['id'] == S['author_id'] %}
+  {% if g.user['username'] == S['author'] %}
 <a class="action" href="{{ url_for('solution.editStat', s_id=S['solution_id']) | safe }}">Edit Statistics</a>
   {% endif %}
   <!-- Solution sorce code -->
   <code>
 <pre>{{ S['sourcecode'] }}</pre>
   </code>
-  {% if g.user['id'] == S['author_id'] %}
+  {% if g.user['username'] == S['author'] %}
 <a class="action" href="{{ url_for('solution.editCode', s_id=S['solution_id']) | safe }}">Edit Code</a>
   {% endif %}
   <!-- Solution description block -->
@@ -37,7 +37,7 @@
       <article>
           {{ S_des | safe }}
       </article>
-  {% if g.user['id'] == S['author_id'] %}
+  {% if g.user['username'] == S['author'] %}
 <a class="action" href="{{ url_for('solution.editInter', s_id=S['solution_id']) | safe }}">Edit Interpretation</a>
   {% endif %}
   <div>

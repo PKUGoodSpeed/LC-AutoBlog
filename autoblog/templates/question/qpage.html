@@ -31,9 +31,7 @@
         <div>
           <h1>{{ S['nickname'] | safe }}</h1>
         </div>
-        {% if g.user['id'] == S['author_id'] %}
-          <a class="action" href="{{ url_for('solution.showSolution', s_id=S['solution_id']) | safe }}">View</a>
-        {% endif %}
+        <a class="action" href="{{ url_for('solution.showSolution', s_id=S['solution_id']) | safe }}">View</a>
       </header>
     </article>
     {% if not loop.last %}
