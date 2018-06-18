@@ -13,7 +13,9 @@ from . import auth
 from . import question
 from . import solution
 
-app.config.from_object(TestConfig)
+# app.config.from_object(TestConfig)
+app.config.from_object(ProdConfig)
+
 
 if not os.path.exists(app.instance_path):
     os.makedirs(app.instance_path)

@@ -266,14 +266,15 @@ def deleteSolution(solution_id):
 def initDataBaseCommand():
     from shutil import copyfile
     # Make replica
-    cache = C['db_cache']
-    if not os.path.exists(cache):
-        os.makedirs(cache)
-    filename = cache + "/saved_"
-    filename += str(datetime.now()).replace(" ", "_")
-    filename += ".database"
-    copyfile(app.config["DATABASE"], filename)
-    click.echo("Old database is saved in " + filename)
+    if os.path.exists(app.config["DATABASE"]):
+        cache = C['db_cache']
+        if not os.path.exists(cache):
+            os.makedirs(cache)
+        filename = cache + "/saved_"
+        filename += str(datetime.now()).replace(" ", "_")
+        filename += ".database"
+        copyfile(app.config["DATABASE"], filename)
+        click.echo("Old database is saved in " + filename)
 
     initDataBase()
     initDescriptions()

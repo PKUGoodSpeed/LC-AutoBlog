@@ -19,4 +19,4 @@ class TestConfig(BaseConfig):
 
 class ProdConfig(BaseConfig):
     SECRET_KEY = "are-you-fucking-retarded"
-    DATABASE = app.instance_path + '/prod.database'
+    DATABASE = app.instance_path + '/jogchat_leetcode.database'
