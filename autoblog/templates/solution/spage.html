@@ -21,7 +21,7 @@
     <span style="background-color: white">Complexity: {{ S['complexity'] | safe }} </span>
     <span style="background-color: yellow">Runtime: {{ S['runtime'] | safe }} </span>
     <span style="background-color: white">Percentage: {{ S['percentage'] | safe }} </span>
-  <div>
+  </div>
   {% if g.user['username'] == S['author'] %}
 <a class="action" href="{{ url_for('solution.editStat', s_id=S['solution_id']) | safe }}">Edit Statistics</a>
   {% endif %}
@@ -40,6 +40,6 @@
   {% if g.user['username'] == S['author'] %}
 <a class="action" href="{{ url_for('solution.editInter', s_id=S['solution_id']) | safe }}">Edit Interpretation</a>
   {% endif %}
-  <div>
+  </div>
   
 {% endblock %}
