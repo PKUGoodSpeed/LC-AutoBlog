@@ -29,7 +29,7 @@ def showSolution():
     s_id = request.args.get("s_id", type=str)
     s_data = getSingleSolution(s_id)
     q_data = getDataBase().execute(
-        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']))).fetchone()
+        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']), )).fetchone()
     if not q_data:
         flash("Something is wrong, did not find the question from database!")
     navs = []
@@ -86,7 +86,7 @@ def editCode():
     s_id = request.args.get("s_id", type=str)
     s_data = getSingleSolution(s_id)
     q_data = getDataBase().execute(
-        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']))).fetchone()
+        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']), )).fetchone()
     if not q_data:
         flash("Something is wrong, did not find the question from database!")
     if request.method == 'POST':
@@ -114,7 +114,7 @@ def editInter():
     s_id = request.args.get("s_id", type=str)
     s_data = getSingleSolution(s_id)
     q_data = getDataBase().execute(
-        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']))).fetchone()
+        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']), )).fetchone()
     if not q_data:
         flash("Something is wrong, did not find the question from database!")
     if request.method == 'POST':
@@ -141,7 +141,7 @@ def editStat():
     s_id = request.args.get("s_id", type=str)
     s_data = getSingleSolution(s_id)
     q_data = getDataBase().execute(
-        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']))).fetchone()
+        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']), )).fetchone()
     if not q_data:
         flash("Something is wrong, did not find the question from database!")
     if request.method == 'POST':
@@ -172,7 +172,7 @@ def deploySolution():
     s_id = request.args.get("s_id", type=str)
     s_data = getSingleSolution(s_id)
     q_data = getDataBase().execute(
-        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']))).fetchone()
+        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']), )).fetchone()
     solution_path = "/".join(
         [C['target_dir'], q_data['title'], s_data['nickname'] + ".html"])
     solution_addr = "/".join(

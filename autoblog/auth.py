@@ -32,7 +32,7 @@ def register():
         elif email.split('.')[-1] != 'edu':
             error = "Haven't you attend university!? Use your university email!"
         elif usr_db.execute(
-            "SELECT id FROM author where username = ?", (username, )
+            "SELECT id FROM author where username = ?", (str(username), )
         ).fetchone() is not None:
             error = "This guy {} is already registered! You must be a fake one!".format(username)
         elif security.lower() != "chaoran":
@@ -58,7 +58,7 @@ def login():
         error = None
 
         user = usr_db.execute(
-            "SELECT * FROM author WHERE username = ?", (username, )
+            "SELECT * FROM author WHERE username = ?", (str(username), )
         ).fetchone()
 
         if not user:
@@ -83,7 +83,7 @@ def loadLoggedInUser():
         g.user = None
     else:
         g.user = getDataBase().execute(
-            "SELECT * FROM author WHERE id = ?", (user_id, )).fetchone()
+            "SELECT * FROM author WHERE id = ?", (str(user_id), )).fetchone()
 
 
 # Logout

@@ -59,7 +59,7 @@ def initDescriptions():
             continue
         q_id = f[1:].split(']')[0]
         q = q_db.execute(
-            "SELECT * FROM question WHERE id = ?", (q_id, )
+            "SELECT * FROM question WHERE id = ?", (str(q_id), )
         ).fetchone()
         if q:
             continue
@@ -134,7 +134,7 @@ def dumpDescription(q_id):
     local_dir = C["local_dir"]
     click.echo("Dumping description for " + str(q_id) + " to " + local_dir + " ...")
     q_data = q_db.execute(
-        "SELECT * FROM question WHERE id = ?", (q_id, )).fetchone()
+        "SELECT * FROM question WHERE id = ?", (str(q_id), )).fetchone()
     if not q_data:
         click.echo("Question " + str(q_id) + " does not exist in database!")
         return
@@ -156,7 +156,7 @@ def deployDescription(q_id):
     target_addr = C["target_web"]
     click.echo("Deploying description for " + str(q_id) + " to " + target_dir + " ...")
     q_data = q_db.execute(
-        "SELECT * FROM question WHERE id = ?", (q_id, )).fetchone()
+        "SELECT * FROM question WHERE id = ?", (str(q_id), )).fetchone()
     if not q_data:
         click.echo("Question " + str(q_id) + " does not exist in database!")
         return
@@ -220,7 +220,7 @@ def _getQuestionMsg(q_data):
 
 def checkQuestion(question_id):
     q_data = getDataBase().execute(
-        "SELECT * FROM question WHERE id = ?", (str(question_id))).fetchone()
+        "SELECT * FROM question WHERE id = ?", (str(question_id), )).fetchone()
     if not q_data:
         click.echo("ERROR: Something is wrong, question#{ID} does not exists!".format(str(question_id)))
         return
@@ -230,12 +230,12 @@ def checkQuestion(question_id):
 def checkSolution(solution_id):
     database = getDataBase()
     s_data = database.execute(
-        'SELECT * FROM solution WHERE solution_id = ?', (str(solution_id))).fetchone()
+        'SELECT * FROM solution WHERE solution_id = ?', (str(solution_id), )).fetchone()
     if not s_data:
         click.echo("ERROR: Solution with solution_id=" + str(solution_id) + " does not exist!")
         return
     q_data = database.execute(
-        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']))).fetchone()
+        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']), )).fetchone()
     if not q_data:
         click.echo("ERROR: Something is wrong, no question corresponds to this solution_id!!")
         return
@@ -245,17 +245,18 @@ def checkSolution(solution_id):
 def deleteSolution(solution_id):
     database = getDataBase()
     s_data = database.execute(
-        'SELECT * FROM solution WHERE solution_id = ?', (str(solution_id))).fetchone()
+        'SELECT * FROM solution WHERE solution_id = ?', (str(solution_id), )).fetchone()
     if not s_data:
         click.echo("ERROR: Solution with solution_id=" + str(solution_id) + " does not exist!")
         return
     q_data = database.execute(
-        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']))).fetchone()
+        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']), )).fetchone()
     database.execute(
         'DELETE FROM solution WHERE solution_id = ?', (str(solution_id),))
     database.commit()
     solution_file = "/".join([C['target_dir'], q_data['title'], s_data['nickname'] + ".html"])
-    os.remove(solution_file)
+    if os.path.exists(solution_file):
+        os.remove(solution_file)
     msg = "Successfully delete solution id={ID}, nickname={NM}, author={AU}\n".format(
         ID=str(solution_id), NM=s_data['nickname'], AU=s_data['author'])
     click.echo("Succe")
@@ -338,6 +339,20 @@ def deleteSolutionCommand(sid):
     deleteSolution(sid)
 
 
+@click.command('usrs')
+@with_appcontext
+def checkUsrsCommand():
+    database = getDataBase()
+    usrs = database.execute('SELECT * FROM author').fetchall()
+    click.echo("=" * 40)
+    for u in usrs:
+        click.echo("author_ID: " + str(u['id']))
+        click.echo("name: " + str(u['username']))
+        click.echo('emain: ' + str(u['email']))
+        solutions = database.execute("SELECT * FROM solution WHERE author = ?", (str(u['username']), )).fetchall()
+        click.echo("number of total solutions: " + str(len(solutions)))
+
+
 def initApp():
     app.teardown_appcontext(closeDataBase)
     app.cli.add_command(initDataBaseCommand)
@@ -348,3 +363,4 @@ def initApp():
     app.cli.add_command(checkQuestionCommand)
     app.cli.add_command(checkSolutionCommand)
     app.cli.add_command(deleteSolutionCommand)
+    app.cli.add_command(checkUsrsCommand)

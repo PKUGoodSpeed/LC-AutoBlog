@@ -17,7 +17,7 @@ blueprint = Blueprint('question', __name__)
 
 def getSolutions(q_id):
     return getDataBase().execute(
-        "SELECT * FROM solution WHERE question_id = ?", (q_id, )
+        "SELECT * FROM solution WHERE question_id = ?", (str(q_id), )
     ).fetchall()
 
 @blueprint.route("/qindex")
@@ -45,7 +45,7 @@ def index():
 
 def getQData(q_title):
     return getDataBase().execute(
-        "SELECT * FROM question WHERE title = ?", (q_title, )
+        "SELECT * FROM question WHERE title = ?", (str(q_title), )
     ).fetchone()
 
 
@@ -101,9 +101,9 @@ def editQuestion():
 def deploySingleSolution(s_id):
     from websrc.codeblock import getSolutionPage
     s_data = getDataBase().execute(
-        "SELECT * FROM solution WHERE solution_id = ?", (str(s_id))).fetchone()
+        "SELECT * FROM solution WHERE solution_id = ?", (str(s_id), )).fetchone()
     q_data = getDataBase().execute(
-        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']))).fetchone()
+        "SELECT * FROM question WHERE id = ?", (str(s_data['question_id']), )).fetchone()
     solution_path = "/".join(
         [C['target_dir'], q_data['title'], s_data['nickname'] + ".html"])
     solution_addr = "/".join(
